@@ -1,0 +1,14 @@
+dist/
+site.tar.gz
+node_modules/
+.local/
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite-*
+*.zip
+*.tar.gz
+wrangler.json
+.wrangler/
+login-preview.png

@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>悬架试验台架｜三缸与五缸联合设计工作台 V4.0</title>
+<style>
+:root{--bg:#f3f6f9;--card:#fff;--line:#dce5ed;--navy:#17324b;--blue:#226fa8;--ink:#1d354a;--muted:#697e8e;--cyan:#e9f4fa;--green:#147b64;--red:#b94343;--amber:#af701c;--road:#6ca8cc;--susp:#62a99a;--load:#d8a166;--fixture:#9086bd}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;color:var(--ink);font-size:13px}button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:white;color:var(--navy);border-radius:8px;padding:9px 11px;font-weight:700}button:hover{border-color:#80b6d5;background:#f4faff}button.primary,.active{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important}.wrap{max-width:1550px;margin:0 auto;padding:22px 25px 45px}.top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:18px}.eyebrow{color:var(--blue);font-weight:850;letter-spacing:.14em;font-size:10px}h1{font-size:26px;margin:7px 0;letter-spacing:-.4px}.subtitle{color:var(--muted);line-height:1.6}.actions{display:flex;flex-wrap:wrap;gap:7px;justify-content:end}.tabbar{display:flex;gap:7px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:14px;flex-wrap:wrap}.tabbar button{padding:10px 22px}.two-col{display:grid;grid-template-columns:365px minmax(0,1fr);gap:15px;align-items:start}.panel,.card{background:var(--card);border:1px solid var(--line);border-radius:13px;box-shadow:0 3px 10px #18314908}.panel{padding:17px;max-height:calc(100vh - 22px);overflow:auto;position:sticky;top:10px}.card{padding:16px}.section{border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:15px}.section:last-child{border:0;padding:0;margin:0}.section h2{font-size:14px;color:var(--navy);margin:0 0 5px}.help{font-size:11.5px;line-height:1.65;color:var(--muted);margin:0 0 10px}.label{font-size:12px;font-weight:700;color:#38556a}.row-field{margin:11px 0}.field-head{display:flex;justify-content:space-between;align-items:center;gap:6px}.num{display:flex;align-items:center;gap:5px}.num input{width:89px;text-align:right;padding:6px 7px;border:1px solid #cbd9e3;border-radius:7px;font-weight:750;background:#fff;color:#183149;outline:none}.num input:focus{border-color:var(--blue);box-shadow:0 0 0 2px #d9edfa}.num small{font-size:11px;color:var(--muted)}input[type=range]{width:100%;appearance:none;height:5px;background:#e2ebf1;border-radius:5px;margin:9px 0 0;cursor:pointer}input[type=range]::-webkit-slider-thumb{appearance:none;width:15px;height:15px;background:var(--blue);border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px #a8cce1}.field-highlight{background:#eef7fe;border:1px solid #c5e2f3;border-radius:9px;padding:6px 9px;margin:9px 0}.field-highlight .row-field{margin:4px 0}.field-highlight .label{color:#155f92}.field-note{font-size:10.5px;color:#6b8294;line-height:1.5}.btnline{display:flex;gap:7px;flex-wrap:wrap}.notice{padding:11px 12px;border-left:3px solid #dca15a;background:#fff8ed;border-radius:5px;font-size:11.5px;color:#79572b;line-height:1.65}.notice.blue{background:#edf7fd;border-color:#6da4c9;color:#2b5974}.content{display:flex;flex-direction:column;gap:13px;min-width:0}.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.metric{padding:15px}.metric .small{font-size:11px;color:var(--muted);font-weight:750}.metric .big{font-size:28px;line-height:1.4;font-weight:850;letter-spacing:-.7px;font-variant-numeric:tabular-nums}.unit{font-size:12px;letter-spacing:0}.metric .footnote{font-size:11px;color:var(--muted);line-height:1.45}.good{color:var(--green)}.bad{color:var(--red)}.caution{color:var(--amber)}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.stage{border:1px solid var(--line);border-radius:10px;padding:12px;cursor:pointer;user-select:none}.stage.current{border-color:#6aa9d5;box-shadow:inset 0 0 0 1px #6aa9d5}.stage.pass{background:#f7fdf9}.stage.fail{background:#fff9f8;border-color:#eac5c1}.stage h3{margin:0 0 7px;font-size:12px}.stage strong{font-size:25px;line-height:1.4}.detail{font-size:11px;line-height:1.7;color:#687e8e}.pill{border-radius:100px;padding:3px 7px;font-size:10px;font-weight:800;white-space:nowrap;display:inline-block}.pill.pass{background:#def3e7;color:#18745b}.pill.fail{background:#fde7e5;color:#a94040}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.sectionhead h2{margin:0;font-size:15px}.sectionhead small{color:var(--muted)}#diagram{width:100%;height:390px;display:block;background:linear-gradient(180deg,#fcfeff,#fff);border:1px solid #eef1f4;border-radius:10px}.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:9px}.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}.duo{display:grid;grid-template-columns:1.15fr 1fr;gap:12px}.info-list{display:flex;flex-direction:column;gap:9px}.info-item{display:flex;gap:9px;font-size:12px;line-height:1.65;border-bottom:1px solid #eff2f4;padding-bottom:8px}.info-item:last-child{border:0}.mark{width:8px;height:8px;border-radius:50%;background:#198869;margin-top:7px;flex:none}.mark.fail{background:#c34b47}.mark.warn{background:#cf9240}pre{background:#f2f7fa;border-radius:9px;padding:13px;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,Consolas,"Microsoft YaHei",monospace;font-size:11.5px;line-height:1.85;margin:0}table{width:100%;border-collapse:collapse;font-size:11.5px}th,td{border-bottom:1px solid #eaf0f3;padding:8px 6px;text-align:left}th{color:#698090;font-weight:750}td:nth-child(2),td:nth-child(3){text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border:0}.hflex{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.check{display:flex;align-items:center;gap:8px;font-weight:700;font-size:12px;margin:8px 0}.check input{accent-color:var(--blue)}.smallprint{font-size:11px;line-height:1.8;color:var(--muted);margin-top:18px}.hide{display:none!important}.status-note{font-size:11px;color:var(--muted);line-height:1.55}.shade{background:#f0f8fc;padding:9px 11px;border-radius:8px;font-size:11.5px;line-height:1.7;color:#315c77}.toolbar{display:flex;gap:6px;justify-content:space-between;align-items:center;flex-wrap:wrap}.toolbar button{font-size:11px;padding:7px 9px}.right{min-width:0}@media(max-width:1130px){.two-col{grid-template-columns:320px minmax(0,1fr)}.summary{grid-template-columns:repeat(2,1fr)}.duo{grid-template-columns:1fr}}@media(max-width:760px){.wrap{padding:13px}.top{display:block}.actions{justify-content:flex-start;margin-top:12px}.two-col{display:block}.panel{position:static;max-height:none;margin-bottom:13px}.summary{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr}.tabbar button{flex:1}.card{padding:12px}.metric .big{font-size:24px}#diagram{height:325px}}@media print{body{background:#fff}.wrap{padding:0;max-width:none}.actions,.tabbar,.panel,.toolbar button{display:none!important}.two-col{display:block}.card{box-shadow:none;break-inside:avoid}.summary{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.duo{grid-template-columns:1fr 1fr}.content{gap:10px}#diagram{height:320px}}
+
+/* 2026-10-16 Interface refinement: engineering design system */
+:root {--bg:#f4f7fa;--card:#fff;--line:#dfe7ef;--navy:#152f45;--ink:#213a4e;--blue:#1b6a9d;--muted:#6b8090;--green:#168066;--red:#b74243;--road:#5c9fcd;--susp:#4aa894;--load:#d5a16c;--fixture:#8a83b4}
+body {background:linear-gradient(180deg,#eaf2f7 0px,#f4f7fa 315px);color:var(--ink);font-size:13px}
+.wrap {max-width:1750px;padding:28px 31px 54px}
+.top{align-items:center;margin-bottom:22px;gap:28px}
+.eyebrow{font-size:10px;color:#3b779b;letter-spacing:2.4px}
+h1{font-weight:830;font-size:29px;line-height:1.4;margin:9px 0 7px;color:#122a40;letter-spacing:-.7px}.h1lite{font-weight:550;color:#45647b}
+.subtitle{font-size:12.5px;max-width:870px;margin:0;color:#698093;line-height:1.85}
+.actions{max-width:550px;align-items:center}.actions button{white-space:nowrap}
+button{transition:background .15s ease,border-color .15s ease,transform .15s ease;border-radius:9px;font-size:12px;padding:9px 12px}
+button:hover {transform:translateY(-1px)}button:focus-visible,[role=button]:focus-visible{outline:3px solid #9bc9e2;outline-offset:2px}
+button.primary,.active{background:#172f45!important;border-color:#172f45!important}
+.tabbar{background:white;border:1px solid #e0e8ee;border-radius:15px;padding:8px;box-shadow:0 5px 20px #193b5707;gap:6px;margin-bottom:18px}
+.tabbar button{border:none;padding:12px 19px;border-radius:9px;background:transparent;font-weight:730;color:#5c7283}
+.tabbar button span{font-size:10px;font-weight:600;opacity:.7;margin-left:5px;white-space:nowrap}
+.tabbar button.active{box-shadow:0 5px 11px #19324e20}
+.tabbar .status-note{margin-left:auto;padding:0 12px;color:#698091}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#159a88;margin-right:5px;box-shadow:0 0 0 4px #e3f4f0}
+.two-col{grid-template-columns:344px minmax(0,1fr);gap:18px}
+.panel,.card{border:1px solid #e1e9ef;box-shadow:0 6px 22px #183a5609;border-radius:16px}
+.panel{padding:18px 18px 21px;top:16px;max-height:calc(100vh - 32px);scrollbar-color:#d6e2ea transparent;scrollbar-width:thin}
+.card{padding:20px 21px}.content{gap:16px}.section{padding-bottom:19px;margin-bottom:19px}
+.section h2{font-size:14px;letter-spacing:-.1px;margin-bottom:7px;color:#152f45}
+.help{font-size:11.5px;line-height:1.7;color:#7990a1}
+.row-field{margin:13px 0}.label{font-size:11.8px;font-weight:650;color:#3e5c72;line-height:1.45}
+.num input{width:84px;border:1px solid #d0e0e9;border-radius:8px;background:#f9fcfe;padding:7px 8px;color:#1e435e;font-weight:750}
+.field-highlight{background:#f0f8fc;border:1px solid #d6e8f4;padding:9px 11px;border-radius:10px}
+.field-highlight .row-field{margin:3px 0}.field-highlight .label{color:#236e94}
+input[type=range]{height:5px;background:#dce9f1}
+input[type=range]::-webkit-slider-thumb{height:17px;width:17px;background:#2379ae;box-shadow:0 1px 4px #13486655;border:3px solid #fff}
+.notice{border-left-color:#d3a062;border-radius:9px;background:#fffbf5;color:#89643a;font-size:11.8px;line-height:1.75}
+.notice.blue{border-color:#7eaecf;background:#f1f8fc;color:#4d7590}
+.summary{gap:13px}.metric{padding:19px 18px}.metric .small{font-size:11px}.metric .big{font-size:29px;margin:4px 0}.metric .footnote{line-height:1.65}
+.sectionhead{margin-bottom:15px}.sectionhead h2{font-size:16px;letter-spacing:-.3px;color:#1b364c}.sectionhead small{display:block;margin-top:5px;line-height:1.6}
+.stage{padding:16px;border-radius:11px;background:#f9fbfd}.stage.current{box-shadow:0 0 0 2px #6aabd0 inset;background:#f6fbff}
+.stage.pass{background:#f8fcfb}.stage.fail{background:#fffafa}.stage strong{font-size:28px}.stage .detail{line-height:1.85}
+.pill{font-size:10px;padding:5px 10px}
+#diagram{height:440px;border-color:#e7eff5;background:#fff}
+.info-item{font-size:12px;line-height:1.7}.shade{background:#f2f8fb;line-height:1.85;padding:14px}
+pre{background:#f6f9fb;font-size:11.5px;padding:16px}
+.smallprint{max-width:1250px;line-height:1.85}
+/* dedicated dual-mode dashboard */
+body.is-comparing .single-only {display:none!important}
+.compare-dashboard{display:flex;flex-direction:column;gap:16px}
+.compare-banner{border:1px solid #dbe7f0;border-radius:17px;background:#fff;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 25px;box-shadow:0 6px 22px #183a5609}
+.compare-kicker{font-size:10px;letter-spacing:1.75px;color:#397c9b;font-weight:800;margin-bottom:8px}
+.compare-banner h2{font-size:22px;line-height:1.3;margin:0;color:#193349;letter-spacing:-.4px}
+.compare-banner p{font-size:12px;color:#6c8293;max-width:710px;line-height:1.8;margin:9px 0 0}
+.compare-outcome{border-left:1px solid #dfe8ee;padding-left:26px;display:flex;flex-direction:column;gap:6px;min-width:200px}
+.compare-outcome small{font-weight:700;color:#8094a0}.compare-outcome strong{font-size:17px;color:#20394a}.compare-outcome.alert strong{color:#ad484b}.compare-outcome.allpass strong{color:#157b64}.compare-outcome span{font-size:11px;color:#708693}
+.compare-keyline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.compare-keyline>div{background:#fff;border:1px solid #e0e9ef;border-radius:13px;padding:15px 17px;box-shadow:0 4px 16px #183a5607}
+.compare-keyline span{font-size:11px;display:block;color:#7991a0;margin-bottom:8px;font-weight:680}
+.compare-keyline strong{font-size:25px;line-height:1.1;letter-spacing:-.7px;color:#193a52;font-variant-numeric:tabular-nums}
+.compare-keyline small{font-size:11px;letter-spacing:0;font-weight:500;color:#8599a8}
+.compare-keyline .negative,.negative{color:#b54244!important}.positive{color:#147e66!important}
+.compare-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.compare-column{background:white;border:1px solid #dfe8ef;border-radius:17px;min-width:0;overflow:hidden;box-shadow:0 6px 22px #183a5609}
+.compare-col-heading{display:flex;gap:12px;align-items:center;padding:18px 19px 15px}
+.compare-col-heading>.comparison-flag{margin-left:auto}
+.mode-emblem{width:41px;height:41px;display:grid;place-items:center;border-radius:11px;background:#eff6f9;font-size:18px;font-weight:800;color:#1e6389;letter-spacing:-1px}
+.compare-column:nth-child(2) .mode-emblem{background:#f0f4f8;color:#3e6480}
+.compare-col-heading h3{margin:0;font-size:17px;line-height:1.4;color:#1d364d}.compare-col-heading p{margin:2px 0 0;color:#8192a0;font-size:11px}
+.compare-specs{display:flex;gap:8px;flex-wrap:wrap;padding:0 19px 16px;border-bottom:1px solid #e8eef3}
+.compare-specs span{background:#f6f9fb;color:#698296;font-size:11px;border:1px solid #e8eef3;border-radius:7px;padding:6px 8px}
+.compare-specs b{color:#243f52;font-weight:750;margin-left:3px}
+.compare-state-list{padding:12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.compare-state{border:1px solid #e1e8ee;border-radius:11px;padding:12px 10px;background:#fff;cursor:pointer;min-width:0;transition:border .2s,background .2s}
+.compare-state:hover{border-color:#9ab9cd;background:#fafdff}.compare-state.invalid{border-color:#eddadb}
+.compare-state-top{display:flex;gap:5px;align-items:center;flex-wrap:wrap;min-height:38px}
+.stage-num{font-size:10px;color:#91a5b1;font-weight:800}.compare-state-title{font-size:11px;font-weight:750;color:#34556c;flex:1;line-height:1.45}
+.comparison-flag{font-size:10px;font-weight:800;border-radius:7px;display:inline-flex;align-items:center;padding:4px 7px;white-space:nowrap}
+.comparison-flag.ok{background:#e7f6ef;color:#16836a}.comparison-flag.no{background:#fff0f0;color:#b24546}
+.compare-value{font-size:26px;color:#1c3f59;font-weight:820;letter-spacing:-.7px;font-variant-numeric:tabular-nums;margin:8px 0 1px;line-height:1.25}
+.compare-value small{font-size:12px;font-weight:650;color:#79909f}
+.compare-value-desc{font-size:10px;color:#8499a6;margin-bottom:10px}
+.mini-rows{display:flex;flex-direction:column;gap:7px;border-top:1px solid #eef2f5;padding-top:10px}
+.mini-rows>div{display:flex;align-items:center;justify-content:space-between;gap:4px;flex-wrap:wrap;font-size:10px;line-height:1.45}
+.mini-rows span{color:#8194a1}.mini-rows strong{color:#29475d;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:10px}
+.compare-foot{display:grid;grid-template-columns:1fr 1fr;gap:11px;background:#f8fafb;border-top:1px solid #e8eef2;padding:14px 19px}
+.compare-foot>div{display:flex;flex-direction:column;gap:5px}.compare-foot small{font-size:10px;color:#7d909d}.compare-foot strong{font-size:14px;color:#29485f;font-variant-numeric:tabular-nums}
+.compare-detailed,.compare-sketches{padding:21px 23px}
+.table-scroll{width:100%;overflow:auto;border:1px solid #e8eef2;border-radius:12px}
+.compare-table{font-size:12px;min-width:540px}
+.compare-table th,.compare-table td{padding:11px 15px}
+.compare-table thead th{background:#f5f8fa;font-size:11px;color:#637f91;font-weight:770;text-align:left}
+.compare-table thead th:nth-child(n+2){text-align:right}
+.compare-table tbody tr:nth-child(2n){background:#fafcfd}
+.compare-table tbody tr:hover{background:#f1f7fb}
+.compare-table tbody th{font-weight:640;color:#38566b;text-align:left;width:45%}
+.compare-table tbody td{font-weight:690;color:#223e55;text-align:right;width:27.5%;font-variant-numeric:tabular-nums}
+.compare-table .cell-number{font-size:13px;font-weight:770}.compare-table .cell-unit{font-size:10px;color:#8194a3}.row-hint{display:block;color:#91a2ad;font-weight:460;font-size:10px;margin-top:4px}
+.table-mode{background:#eaf1f6;color:#1a6b92;border-radius:5px;padding:3px 5px;font-weight:830;margin-right:8px}
+.compare-toggle{display:flex;gap:5px;flex-wrap:wrap}.compare-toggle button{padding:8px 9px;font-size:10px}.compare-toggle button.current{background:#183750;color:#fff;border-color:#183750}
+.compare-sketch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.compare-sketch-grid>div{min-width:0;border:1px solid #e6eef3;border-radius:12px;overflow:hidden;background:#fff}
+.mini-diagram-name{padding:11px 14px;border-bottom:1px solid #eef2f5;display:flex;justify-content:space-between;gap:7px;align-items:center;color:#294a61}
+.compare-sketch-grid svg{width:100%;height:auto;display:block;aspect-ratio:1040/530}
+.compare-geometry-disclaimer{font-size:11px;color:#8194a2;line-height:1.8;margin:12px 0 0}
+@media(max-width:1470px){.compare-state-list{grid-template-columns:1fr}.compare-state{display:grid;grid-template-columns:180px 110px 1fr;gap:10px;align-items:center}.compare-state-top{align-items:center}.compare-value{margin:0}.compare-value-desc{display:none}.mini-rows{border:0;padding-top:0;margin:0}.mini-rows>div{justify-content:flex-start;gap:8px}.compare-banner h2{font-size:20px}}
+@media(max-width:1180px){.two-col{grid-template-columns:310px minmax(0,1fr)}.compare-two{grid-template-columns:1fr}.compare-state-list{grid-template-columns:repeat(3,minmax(0,1fr))}.compare-state{display:block}.compare-value-desc{display:block}.mini-rows{border-top:1px solid #eef2f5;padding-top:10px;margin-top:10px}.compare-sketch-grid{grid-template-columns:1fr}.compare-keyline{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start;flex-direction:column}.actions{max-width:none}.tabbar .status-note{width:100%;margin:4px 0 0}}
+@media(max-width:900px){.two-col{display:block}.panel{position:static;max-height:none;margin-bottom:15px}.compare-sketch-grid{grid-template-columns:1fr}.compare-two{grid-template-columns:1fr}}
+@media(max-width:620px){.wrap{padding:14px 11px 36px}h1{font-size:24px}.h1lite{display:block}.tabbar button{flex:1;padding:10px 8px}.tabbar button span{display:block;margin:4px 0 0}.compare-banner{flex-direction:column;align-items:stretch;padding:18px}.compare-outcome{border-left:none;border-top:1px solid #e5edf2;padding:12px 0 0;min-width:0}.compare-keyline{grid-template-columns:repeat(2,1fr)}.compare-keyline>div{padding:12px}.compare-keyline strong{font-size:21px}.compare-state-list{grid-template-columns:1fr}.compare-state{display:grid;grid-template-columns:1fr 1fr;gap:6px}.compare-state-top{grid-column:1/-1}.mini-rows{grid-column:1/-1}.compare-value-desc{margin:auto 0}.compare-foot{grid-template-columns:1fr}.compare-detailed,.compare-sketches{padding:15px}.actions button{flex:1}.sectionhead{align-items:flex-start;flex-direction:column}.compare-table th,.compare-table td{padding:9px 9px}.summary{grid-template-columns:repeat(2,1fr)}}
+@media print{.wrap{padding:8px}.panel,.tabbar,.actions,.compare-toggle,#copyCompareTable{display:none!important}.compare-banner,.compare-keyline>div,.compare-column,.compare-detailed,.compare-sketches{break-inside:avoid;box-shadow:none}.two-col{display:block}.compare-two{grid-template-columns:1fr 1fr}.compare-state-list{grid-template-columns:1fr}.compare-state{display:block}.compare-sketch-grid{grid-template-columns:1fr 1fr}.compare-detailed{page-break-before:auto}}
+
+
+/* Full engineering print report: current parameter snapshot + all six geometry diagrams. */
+.print-report{display:none}
+@page{size:A4 portrait;margin:12mm 11mm 13mm}
+@media print{
+  html,body{margin:0!important;padding:0!important;background:white!important;color:#152b3e!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body>main.wrap{display:none!important}
+  body>#printReport{display:block!important;width:100%;font-family:"Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif;font-size:9pt;line-height:1.48}
+  .print-report *{box-sizing:border-box}
+  .print-report h1{font-size:19pt;margin:0 0 4mm;line-height:1.25}
+  .print-report h2{font-size:12pt;margin:0;color:#18364f}
+  .print-report h3{font-size:10pt;margin:0;color:#244c69}
+  .print-report p{margin:1.8mm 0 2.5mm}
+  .print-report .print-document-head{border-bottom:2px solid #365c77;padding-bottom:4mm;margin-bottom:4mm}
+  .print-report .print-document-head .print-kicker{letter-spacing:1.1px;color:#537990;font-weight:750;font-size:8pt;margin-bottom:2mm}
+  .print-report .print-document-head .print-meta{display:flex;flex-wrap:wrap;gap:2mm 9mm;color:#52697c;font-size:8pt}
+  .print-report .print-parameter-header,.print-report .print-section-head{display:flex;justify-content:space-between;align-items:baseline;gap:5mm;border-bottom:1px solid #cedee7;padding:2.5mm 0;margin:2mm 0 3mm}
+  .print-report .print-section-head small,.print-report .print-parameter-header small{color:#688092;font-size:8pt}
+  .print-report .print-parameter-groups{display:grid;grid-template-columns:1fr 1fr;gap:3mm;margin-bottom:5mm}
+  .print-report .print-param-group{border:1px solid #cfdae4;border-radius:2mm;overflow:hidden;break-inside:avoid;page-break-inside:avoid}
+  .print-report .print-param-group h3{background:#edf3f7;border-bottom:1px solid #d9e6ed;padding:2.5mm 3mm;font-size:9pt}
+  .print-report .print-param-table{width:100%;border-collapse:collapse;font-size:8pt}
+  .print-report .print-param-table th,.print-report .print-param-table td{border-bottom:1px solid #e6edf2;padding:1.5mm 2.7mm;vertical-align:middle}
+  .print-report .print-param-table th{width:70%;font-weight:500;color:#29465c;text-align:left}
+  .print-report .print-param-table td{text-align:right;font-weight:750;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .print-report .print-param-table tr:last-child th,.print-report .print-param-table tr:last-child td{border-bottom:none}
+  .print-report .print-stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2mm;margin:2mm 0 4mm}
+  .print-report .print-stat-strip>div{border:1px solid #d7e2e9;background:#f5f9fb;padding:2.3mm;border-radius:2mm}
+  .print-report .print-stat-strip small{display:block;font-size:7.5pt;color:#5d7382}
+  .print-report .print-stat-strip b{font-size:11pt;font-weight:800;color:#224358}
+  .print-report .print-report-matrix{width:100%;border-collapse:collapse;font-size:8.4pt;margin:0 0 4mm}
+  .print-report .print-report-matrix th,.print-report .print-report-matrix td{border:1px solid #dce6ed;padding:2mm 2.3mm;vertical-align:middle}
+  .print-report .print-report-matrix thead th{background:#eef4f8;font-weight:750;text-align:center}
+  .print-report .print-report-matrix td:nth-child(n+2){text-align:center;font-variant-numeric:tabular-nums}
+  .print-report .print-report-matrix tbody tr:nth-child(even){background:#f8fbfd}
+  .print-report .print-motion-header{border-top:2px solid #365c77;margin-top:5mm;padding:3mm 0 0;break-after:avoid-page;page-break-after:avoid}
+  .print-report .print-motion-block{break-inside:avoid;page-break-inside:avoid;border:1px solid #cddde8;border-radius:2.4mm;margin:3mm 0 4mm;padding:3mm}
+  .print-report .print-motion-block .print-motion-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:2mm;gap:4mm}
+  .print-report .print-motion-grid{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+  .print-report .print-motion-figure{min-width:0;border:1px solid #dbe6ed;border-radius:1.5mm;overflow:hidden}
+  .print-report .print-motion-figure strong{display:block;padding:1.8mm 2mm;background:#f3f7fa;font-size:8.5pt}
+  .print-report .print-motion-figure svg{width:100%;height:auto;aspect-ratio:1040/530;display:block;max-height:none!important;background:#fff}
+  .print-report .print-motion-caption{display:flex;justify-content:space-between;gap:2mm;padding:1mm 2mm;color:#607b89;font-size:7.5pt}
+  .print-report .print-footnote{color:#536c7a;font-size:7.7pt;line-height:1.7;margin:2.5mm 0 3.5mm}
+  .print-report .print-note{font-size:8pt;padding:2.8mm;border-left:2px solid #bb874d;background:#faf7f1;break-inside:avoid}
+  .print-report .print-calcs{border:1px solid #dce6ed;padding:3mm;margin:2mm 0 4mm;background:#fbfcfd;font-size:8pt;line-height:1.8;break-inside:avoid}
+  .print-report .print-final-note{font-size:7.5pt;border-top:1px solid #dbe4ea;padding-top:2mm;color:#6a7f8d}
+  .print-report .positive{color:#147e66!important}.print-report .negative{color:#b54244!important}
+  .print-report .print-param-group,.print-report .print-section-head,.print-report .print-parameter-header,.print-report .print-motion-block,.print-report .print-report-matrix thead{break-inside:avoid}
+}
+
+/* V4 · CAD-inspired engineering scene and polished interface */
+:root{--bg:#eef3f7;--navy:#102a42;--ink:#213b51;--line:#dbe5ee;--blue:#1675aa;--green:#187f6b}
+body{background:linear-gradient(180deg,#e8f0f6 0,#f4f7fa 285px);font-feature-settings:"tnum"}
+.top{padding:21px 24px;background:linear-gradient(110deg,#102c45 0%,#183e58 78%,#25546c 100%);border:1px solid #31586e;border-radius:19px;box-shadow:0 15px 35px #17365115;position:relative;overflow:hidden}
+.top:after{content:"";position:absolute;width:270px;height:270px;border:1px solid #ffffff12;right:-75px;top:-115px;transform:rotate(35deg);pointer-events:none}
+.top h1{color:white;font-size:27px}.top .h1lite{color:#b6d4e4}.top .eyebrow{color:#82b9d5}.top .subtitle{color:#b7cbda}
+.kicker-dot{color:#bcdfdb;letter-spacing:.05em;font-size:10px;margin-left:12px}
+.top button{background:#ffffff13;color:#eef8ff;border-color:#ffffff30}.top button:hover{background:#ffffff26;color:white}.top button.primary{background:#f5f8fa!important;border-color:#f5f8fa!important;color:#1a3a50!important}
+.tabbar{margin-top:16px}.tabbar button.active{background:#163e56!important}
+.panel{background:#fff}.section{border-bottom:1px solid #e1eaf0}.section h2{letter-spacing:.1px}
+.field-highlight{background:#eff7fd;border-color:#c9e3f5}.num input{font-size:12px;border-radius:7px}
+.card{box-shadow:0 7px 25px #142d420a}.metric .big{color:#164c6b}
+#diagram{height:485px;background:#f8fafc;border-color:#dfe8ee}
+.compare-sketch-grid svg{background:#f8fafc;aspect-ratio:1040/530}
+.compare-sketch-grid>div{box-shadow:0 5px 18px #19394c09}
+.compare-sketches .sectionhead{margin-bottom:16px}
+.animate-toggle{background:#e5f4f6!important;color:#116878!important;border-color:#bedfe6!important}
+.animate-toggle.playing{background:#175c70!important;color:white!important;border-color:#175c70!important}
+.legend{padding:9px 6px}.pill.pass{background:#e1f4eb;color:#117b5a}
+@media(max-width:900px){.top{padding:16px}.top h1{font-size:22px}#diagram{height:auto;aspect-ratio:1040/530}}
+@media print{.print-report .print-motion-figure svg{background:#fff}.top{display:none}}
+</style></head><body><main class="wrap"><header class="top"><div><div class="eyebrow">SUSPENSION TEST RIG / DIGITAL ENGINEERING WORKSPACE <span class="kicker-dot">● PDF参数已加载</span></div><h1>悬架试验台架 <span class="h1lite">三缸 / 五缸联合优化</span></h1><p class="subtitle">两方案共用负载缸参数、悬架缸额定行程和路况缸额定行程，三缸方形法兰与五缸U形销孔安装距独立设置。以 2026-10-23 10:58 PDF 参数记录为默认值。支持安装尺寸联动、斜置悬架铰接闭合、三工况工程立体可视化与完整打印，单位 mm。</p></div><div class="actions"><button id="reset">恢复三缸PDF参数</button><button id="resetAll">恢复PDF全部参数</button><button id="export">导出参数JSON</button><button id="copy">复制计算报告</button><button id="print" class="primary">打印 / PDF</button></div></header>
+<div class="tabbar"><button id="tab3" class="active">三缸方案 <span>1 + 1 + 1</span></button><button id="tab5">五缸方案 <span>1 + 2 + 2</span></button><button id="tabBoth">双方案对比核验</button><span class="status-note"><span class="live-dot"></span> 五缸路况缸销心安装距独立可调 · 共用液压缸行程同步</span></div>
+<div class="two-col"><aside class="panel" id="controls">
+<div class="section"><h2>01 · 共同基准与共用液压缸</h2><p class="help">两方案共用龙门架净高、负载缸安装长度与额定行程，以及悬架缸、路况缸的额定行程；各构型的安装距离独立设置。</p><div id="commonFields"></div></div>
+<div class="section" id="ctrl3"><h2>02 · 三缸方案参数</h2><p class="help">保留已确定的三缸尺寸基准。基准工作位可调，不必固定在半行程。</p><div id="fields3"></div><div class="btnline"><button id="half3">基准位恢复半行程</button><button id="pad3solve">反算三缸垫块</button></div></div>
+<div class="section" id="ctrl5"><h2>03 · 五缸方案参数</h2><p class="help">新增左右两根倾斜悬架缸，按销轴中心和实际倾角计算竖向投影。悬架缸最短销心距初始为530 mm，额定行程取共用参数；上铰点317.5、下铰点400、上部连接高差295。左右路况缸安装距（底法兰面至U形头销孔中心）独立可调，PDF默认715 mm。</p><div id="fields5"></div><div class="btnline"><button id="sync5">同步左右基准位</button><button id="half5">两侧基准位恢复半行程</button><button id="pad5solve">反算五缸垫块</button></div></div>
+<div class="section"><h2>04 · 几何限制与安全裕量</h2><div id="safetyFields"></div><div class="notice">无杆腔净高＝负载缸伸出量＋完全缩回时的无杆腔死区净高。死区默认0，仅为保守近似。若计算值为0 mm，表示到达缩回端，并不代表工程上推荐该位置。</div><div id="tiltControl" style="margin-top:12px"><label class="check"><input type="checkbox" id="tilt"> 允许五缸上横梁绕中心倾转（仅几何试算）</label><p class="help">默认上横梁水平。开启倾转仅用于探索两侧不同步工况；实际导向杆、中央负载缸及机构是否允许转动，必须另行确认。</p><div id="maxAngleField"></div></div></div>
+<div class="section"><h2>05 · 尺寸反算与联合匹配</h2><p class="help">按全缩回装配、指定中位和路况额外上升计算垫块允许区间；如果区间不存在，将显示负载缸的最低理论行程。</p><button id="jointSolve" class="primary" style="width:100%">反算两方案垫块及负载缸额定行程</button><p id="solverNote" class="help" style="margin:9px 0 0"></p></div>
+</aside><div class="content right">
+<div class="summary single-only" id="metrics"></div><div id="modeAlert" class="notice blue"></div>
+<section id="comparePanel" class="compare-dashboard hide" aria-label="三缸与五缸方案同屏校核"></section>
+<section class="card single-only"><div class="sectionhead"><div><h2 id="resultTitle">三缸运动工况核验</h2><small>点击下方工况卡片，可切换右侧运动示意</small></div><span id="passBadge" class="pill"></span></div><div class="grid3" id="stages"></div></section>
+<section class="card single-only"><div class="sectionhead"><div><h2 id="diagramTitle">三缸工程立体运动模型</h2><small>固定龙门架与缸筒，显示活塞杆伸缩、法兰及铰接运动；工程立体示意</small></div><div class="toolbar"><button data-stage="0" class="statebtn">①装配</button><button data-stage="1" class="statebtn">②中位</button><button data-stage="2" class="statebtn">③上升</button><button class="animate-toggle" id="singleAnimate" title="演示基准工作位与附加上升位之间的机构运动">▶ 运动演示</button></div></div><svg id="diagram" viewBox="0 0 1040 530" preserveAspectRatio="xMidYMid meet" role="img" aria-label="台架运动示意"></svg><div class="legend"><span><i class="dot" style="background:#303a44"></i>负载缸</span><span><i class="dot" style="background:#b7c8ce"></i>悬架缸</span><span><i class="dot" style="background:#505d66"></i>路况缸</span><span><i class="dot" style="background:#d1cabb"></i>机加件 / 连杆</span><span style="color:#b26f24">● 铰接中心 / 尺寸参考</span></div></section>
+<div class="duo single-only"><section class="card"><div class="sectionhead"><h2>尺寸链与约束核查</h2></div><div class="info-list" id="checks"></div></section><section class="card"><div class="sectionhead"><h2>垫块反算与尺寸链</h2></div><div id="window" class="shade"></div><div style="height:10px"></div><pre id="formula"></pre></section></div>
+<section class="card"><div class="sectionhead"><h2>共用部件与安装尺寸核对</h2><span class="pill" style="background:#eef3f6;color:#4d7083">二维几何约束 + 工程立体可视化 · 非实体干涉结论</span></div><div id="sharedTable"></div><div id="physicalWarning" class="notice" style="margin-top:12px"></div></section>
+</div></div><footer class="smallprint">工程边界：此程序仅计算刚性机构的二维几何尺寸链与行程约束；工程立体模型仅为动态视觉表达，不预测力、稳定性、铰座侧向力、缸内活塞与端盖实际距离，也不能代替SolidWorks运动仿真、干涉检查和缸厂的内部结构审查。倾转模式尤其需要验证导向机构能否允许横梁转动。</footer></main>
+<div id="printReport" class="print-report" aria-label="完整参数与双方案核验打印报告"></div>
+<script>
+'use strict';
+const initial={H:2584,machine:215,pad3:68,pad5:50,loadMin:630,loadStroke:375,susStroke:250,roadMin:680,roadStroke:300,road5Min:715,sus3Min:620,sus3Mid:125,road3Mid:150,road3Rise:94,sus5Min:530,sus5MidL:125,sus5MidR:125,road5MidL:150,road5MidR:150,road5RiseL:94,road5RiseR:94,upperX:317.5,lowerX:400,upperDrop:295,minC3:0,minC5:0,dead:0,endReserve:0,sideTolerance:0.5,maxAngle:8};
+let P={...initial},mode='three',selectedStage=1,tilt=false;
+const $=id=>document.getElementById(id),f=v=>!Number.isFinite(v)?'—':(Math.round(v*100)/100).toLocaleString('zh-CN',{maximumFractionDigits:2}),esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const schema={commonFields:[['H','龙门架竖向有效净高',2200,3000,1],['loadMin','负载缸最短安装长度',400,1100,1],['loadStroke','负载缸额定行程',250,850,1],['susStroke','悬架缸额定行程',100,400,1],['roadStroke','路况缸额定行程',150,500,1]],fields3:[['machine','中间机加件轴向高度',100,350,1],['sus3Min','中置悬架缸最短安装长度',400,950,1],['roadMin','三缸路况缸最短安装距（方形法兰）',400,1000,1],['sus3Mid','悬架缸基准工作位（伸出量）',0,250,1,'focus'],['road3Mid','路况缸基准工作位（伸出量）',0,300,1,'focus'],['road3Rise','路况缸附加上升位移',0,300,1],['pad3','三缸底座垫块高度',0,300,1]],fields5:[['sus5Min','双悬架缸最短销心距',350,800,1],['upperX','上铰点距中心轴（单侧）',100,600,0.5],['lowerX','下铰点距中心轴（单侧）',100,650,0.5],['upperDrop','负载杆端至上铰点高度差（实测）',40,400,1,'confirmed'],['road5Min','五缸路况缸最短安装距（U形头销心）',400,1100,1,'focus'],['pad5','五缸底座垫块高度（待定）',0,350,1,'unknown'],['sus5MidL','左悬架缸基准工作位',0,250,1,'focus'],['sus5MidR','右悬架缸基准工作位',0,250,1,'focus'],['road5MidL','左路况缸基准工作位',0,300,1,'focus'],['road5MidR','右路况缸基准工作位',0,300,1,'focus'],['road5RiseL','左路况缸附加上升位移',0,300,1],['road5RiseR','右路况缸附加上升位移',0,300,1]],safetyFields:[['dead','负载缸缩回端残余腔高（实测）',0,180,1],['minC3','三缸目标工况最小腔高',0,200,1],['minC5','五缸目标工况最小腔高',0,200,1],['endReserve','负载缸伸出端安全余量',0,80,1],['sideTolerance','五缸左右铰接闭合容差',0.1,10,0.1]]};
+function createControls(){for(const [area,fields] of Object.entries(schema)){let root=$(area);root.innerHTML=fields.map(([key,label,min,max,step,tag])=>`<div class="${tag==='focus'?'field-highlight':''}"><div class="row-field"><div class="field-head"><label class="label" for="n_${key}">${esc(label)}</label><span class="num"><input type="number" id="n_${key}" data-param="${key}" step="${step}" value="${P[key]}"><small>mm</small></span></div><input aria-label="${esc(label)}滑动调节" type="range" id="r_${key}" data-param="${key}" min="${min}" max="${max}" step="${step}" value="${P[key]}">${tag==='unknown'?'<div class="field-note">⚠ 该垫高可调；当前是PDF记录值</div>':tag==='confirmed'?'<div class="field-note">✓ 初始值依据已提供的实测尺寸，允许调整作设计试算</div>':''}</div></div>`).join('');}
+$('maxAngleField').innerHTML='<div class="row-field"><div class="field-head"><label class="label">允许横梁最大倾角</label><span class="num"><input type="number" id="n_maxAngle" data-param="maxAngle" step="0.5" value="8"><small>°</small></span></div><input type="range" id="r_maxAngle" min="1" max="25" step="0.5" data-param="maxAngle" value="8"></div>';
+document.querySelectorAll('[data-param]').forEach(el=>{el.addEventListener('input',()=>{let val=Number(el.value);if(!Number.isFinite(val))return;P[el.dataset.param]=val;let other=$(el.id.startsWith('n_')?'r_'+el.dataset.param:'n_'+el.dataset.param);if(other){if(other.type==='range'&&(val>Number(other.max)||val<Number(other.min))){other.min=Math.min(Number(other.min),val);other.max=Math.max(Number(other.max),val)}other.value=val}render()});});}
+function roadL5(){return P.road5Min}
+function validInput(){return Object.keys(P).every(k=>Number.isFinite(P[k]))&&P.H>0&&P.loadMin>0&&P.loadStroke>0&&P.roadMin>0&&P.roadStroke>0&&P.sus3Min>0&&P.sus5Min>0&&P.susStroke>0&&roadL5()>0}
+function calc3(){let base=P.H-P.loadMin-P.machine-P.sus3Min-P.roadMin,offset=P.sus3Mid+P.road3Mid+P.road3Rise,q0=base-P.pad3;let stages=[{name:'下部缸全缩回 · 装配位',s:0,r:0},{name:'双缸基准工作位',s:P.sus3Mid,r:P.road3Mid},{name:'路况缸附加上升位',s:P.sus3Mid,r:P.road3Mid+P.road3Rise}].map((o,i)=>{let q=q0-o.s-o.r;let roadOK=o.r>=0&&o.r<=P.roadStroke, susOK=o.s>=0&&o.s<=P.susStroke,loadOK=q>=0&&q<=P.loadStroke+(i===0?-P.endReserve:0),cavity=q+P.dead,cavityOK=i!==2||cavity>=P.minC3;return {...o,q,cavity,roadOK,susOK,loadOK,cavityOK,ok:roadOK&&susOK&&loadOK&&cavityOK}});let minReq=Math.max(0,P.minC3-P.dead),minStroke=offset+minReq+P.endReserve;let low=base-(P.loadStroke-P.endReserve),high=base-(offset+minReq);return {stages,offset,q0,base,minStroke,low,high,feasible:low<=high,all:stages.every(s=>s.ok),name:'三缸'};}
+const rads=d=>d*Math.PI/180,deg=r=>r*180/Math.PI;
+function calc5Stage(sL,sR,rL,rR,key){let a=P.upperX,b=P.lowerX,min=P.sus5Min;const L=[min+sL,min+sR],R=[P.pad5+roadL5()+rL,P.pad5+roadL5()+rR];let t=0,lim=rads(P.maxAngle), angleOK=true, geometryOK=true;
+function v(i,th){let dx=b-a*Math.cos(th);let sq=L[i]*L[i]-dx*dx;return sq>=0?Math.sqrt(sq):NaN}
+function Y(i,th){return R[i]+v(i,th)+(i===0?1:-1)*a*Math.sin(th)}
+let err0=Y(0,0)-Y(1,0);
+if(tilt&&Number.isFinite(err0)){let lo=-lim,hi=lim,glo=Y(0,lo)-Y(1,lo),ghi=Y(0,hi)-Y(1,hi);if(Number.isFinite(glo)&&Number.isFinite(ghi)&&glo*ghi<=0){for(let n=0;n<70;n++){let md=(lo+hi)/2,g=Y(0,md)-Y(1,md);if(glo*g<=0){hi=md}else{lo=md;glo=g}}t=(lo+hi)/2}else{angleOK=false;t=Math.abs(glo)<Math.abs(ghi)?lo:hi}}
+let vl=v(0,t),vr=v(1,t),yl=Y(0,t),yr=Y(1,t);geometryOK=Number.isFinite(vl)&&Number.isFinite(vr)&&L.every(w=>w>0);let mismatch=yl-yr,Ycent=(yl+yr)/2;let q=P.H-P.loadMin-P.upperDrop-Ycent,cavity=q+P.dead;let lowerOK=[sL,sR].every(x=>x>=0&&x<=P.susStroke)&&[rL,rR].every(x=>x>=0&&x<=P.roadStroke);let loadOK=q>=0&&q<=P.loadStroke+(key==='assembly'?-P.endReserve:0),compatOK=geometryOK&&angleOK&&Math.abs(mismatch)<=P.sideTolerance;let cavityOK=key!=='test'||cavity>=P.minC5;return {name:key==='assembly'?'两侧下部缸全缩回 · 装配位':key==='mid'?'左右基准工作位':'路况缸附加上升位',sL,sR,rL,rR,q,cavity,lowerOK,loadOK,compatOK,cavityOK,ok:lowerOK&&loadOK&&compatOK&&cavityOK,t,angle:deg(t),mismatch,Ycent,yl,yr,vl,vr,L,R,geometryOK,angleOK};}
+function calc5(){let stages=[calc5Stage(0,0,0,0,'assembly'),calc5Stage(P.sus5MidL,P.sus5MidR,P.road5MidL,P.road5MidR,'mid'),calc5Stage(P.sus5MidL,P.sus5MidR,P.road5MidL+P.road5RiseL,P.road5MidR+P.road5RiseR,'test')];let base=stages[0].q+P.pad5,offset=stages[0].Ycent-stages[2].Ycent; // negative of actual rise; correct offset below
+let effectiveOffset=stages[2].Ycent-stages[0].Ycent;
+let low=base-(P.loadStroke-P.endReserve),high=base-(effectiveOffset+Math.max(0,P.minC5-P.dead));let minStroke=effectiveOffset+Math.max(0,P.minC5-P.dead)+P.endReserve;return {stages,base,offset:effectiveOffset,minStroke,low,high,feasible:low<=high,all:stages.every(s=>s.ok),name:'五缸'};}
+function setMode(m){mode=m;selectedStage=1;render()}
+function setP(next){P={...P,...next};document.querySelectorAll('[data-param]').forEach(el=>{if(P[el.dataset.param]!==undefined){let val=P[el.dataset.param];if(el.type==='range'&&(val<Number(el.min)||val>Number(el.max))){el.min=Math.min(Number(el.min),val);el.max=Math.max(Number(el.max),val)}el.value=val}});render()}
+function isValidWindow(c){return Number.isFinite(c.low)&&Number.isFinite(c.high)&&c.low<=c.high&&c.high>=0}
+function choosePad(c,current){if(!isValidWindow(c))return null;const l=Math.max(0,c.low),u=c.high;return current>=l&&current<=u?current:(l+u)/2}
+function summaryCard(title,val,tip,tone){return `<article class="card metric"><div class="small">${title}</div><div class="big ${tone||''}">${f(val)}<span class="unit"> mm</span></div><div class="footnote">${tip}</div></article>`}
+
+const checkLabel=(ok)=>`<span class="comparison-flag ${ok?'ok':'no'}">${ok?'满足':'冲突'}</span>`;
+function compareNumber(v,unit='mm'){return `<span class="cell-number">${f(v)}</span><span class="cell-unit"> ${unit}</span>`}
+function compareStageCard(c,isFive,index){
+  let a=c.stages[index],clearance=a.cavity-(isFive?P.minC5:P.minC3),lower=isFive?a.lowerOK:(a.roadOK&&a.susOK),reserved=P.loadStroke-a.q;
+  return `<article class="compare-state ${a.ok?'valid':'invalid'}" data-compare-stage="${index}" tabindex="0" role="button" aria-label="查看${isFive?'五缸':'三缸'}${a.name}工况">
+    <div class="compare-state-top"><span class="stage-num">0${index+1}</span><span class="compare-state-title">${['装配初始位','设定基准工作位','附加上升目标位'][index]}</span>${checkLabel(a.ok)}</div>
+    <div class="compare-value">${f(a.q)} <small>mm</small></div><div class="compare-value-desc">负载缸活塞杆伸出量</div>
+    <div class="mini-rows"><div><span>无杆腔轴向净高（估算）</span><strong>${f(a.cavity)} mm</strong></div><div><span>伸出端剩余行程</span><strong>${f(reserved)} mm</strong></div><div><span>下部缸行程</span>${checkLabel(lower)}</div>${isFive?`<div><span>左右铰接几何闭合</span>${checkLabel(a.compatOK)}</div>`:''}${index===2?`<div><span>目标腔高余量</span><strong class="${clearance>=0?'positive':'negative'}">${f(clearance)} mm</strong></div>`:''}</div>
+  </article>`;
+}
+function compareMetricRow(label,a,b,fmt=(v)=>compareNumber(v),note=''){
+ return `<tr><th scope="row">${label}${note?`<span class="row-hint">${note}</span>`:''}</th><td>${fmt(a)}</td><td>${fmt(b)}</td></tr>`;
+}
+function renderCompare(c3,c5){
+ const statusAll=c3.all&&c5.all,stageSelected=['装配初始位','基准工作位','附加上升位'][selectedStage];
+ const side=(c,isFive)=>{
+   let minC=isFive?P.minC5:P.minC3;
+   return `<div class="compare-column"><div class="compare-col-heading"><div class="mode-emblem">${isFive?'05':'03'}</div><div><h3>${isFive?'五缸构型':'三缸构型'}</h3><p>${isFive?'1负载 + 2悬架 + 2路况':'1负载 + 1悬架 + 1路况'}</p></div>${checkLabel(c.all)}</div>
+   <div class="compare-specs"><span>底座垫高 <b>${f(isFive?P.pad5:P.pad3)} mm</b></span><span>目标腔高下限 <b>${f(minC)} mm</b></span></div>
+   <div class="compare-state-list">${c.stages.map((_,i)=>compareStageCard(c,isFive,i)).join('')}</div>
+   <div class="compare-foot"><div><small>负载缸最低理论行程</small><strong>${f(c.minStroke)} mm</strong></div><div><small>垫块允许高度区间</small><strong>${isValidWindow(c)?`${f(Math.max(0,c.low))} ~ ${f(c.high)} mm`:'无可行区间'}</strong></div></div>
+   </div>`;
+ };
+ const fmtPass=(ok)=>checkLabel(ok);
+ let as3=c3.stages[0],md3=c3.stages[1],tg3=c3.stages[2],as5=c5.stages[0],md5=c5.stages[1],tg5=c5.stages[2];
+ const table=[
+   compareMetricRow('结构形式','1+1+1','1+2+2',x=>`<b>${x}</b>`,'负载缸 / 悬架缸 / 路况缸数量'),
+   compareMetricRow('负载缸最短安装长度',P.loadMin,P.loadMin),
+   compareMetricRow('负载缸额定行程',P.loadStroke,P.loadStroke),
+   compareMetricRow('路况缸最短安装长度',P.roadMin,roadL5()),
+   compareMetricRow('悬架缸最短安装长度',P.sus3Min,P.sus5Min),
+   compareMetricRow('底座垫块高度',P.pad3,P.pad5),
+   compareMetricRow('中间连接尺寸',P.machine,P.upperDrop,x=>compareNumber(x),'三缸机加件高度 / 五缸杆端至上铰点高差'),
+   compareMetricRow('装配初始位 · 负载伸出量',as3.q,as5.q),
+   compareMetricRow('基准工作位 · 负载伸出量',md3.q,md5.q),
+   compareMetricRow('目标工作位 · 负载伸出量',tg3.q,tg5.q),
+   compareMetricRow('目标工作位 · 无杆腔净高',tg3.cavity,tg5.cavity),
+   compareMetricRow('目标净高剩余裕量',tg3.cavity-P.minC3,tg5.cavity-P.minC5),
+   compareMetricRow('装配初始位 · 伸出端余量',P.loadStroke-as3.q,P.loadStroke-as5.q),
+   compareMetricRow('理论最小负载缸行程',c3.minStroke,c5.minStroke),
+   compareMetricRow('垫块可行区间',c3,c5,x=>isValidWindow(x)?`<b>${f(Math.max(0,x.low))} ~ ${f(x.high)} mm</b>`:'<strong class="negative">无可行区间</strong>'),
+   compareMetricRow('三工况几何约束判定',c3.all,c5.all,fmtPass)
+ ].join('');
+ $('comparePanel').innerHTML=`<div class="compare-banner"><div><div class="compare-kicker">DESIGN VERIFICATION · DUAL MODE</div><h2>三缸 / 五缸 · 工况并行核对</h2><p>所有数据由当前输入实时计算。两方案共享负载缸参数、悬架缸和路况缸额定行程，路况缸的三缸方形法兰安装距与五缸U形销心安装距分别输入、独立校核。</p></div><div class="compare-outcome ${statusAll?'allpass':'alert'}"><small>联合校核结果</small><strong>${statusAll?'两种构型均满足':'存在几何约束冲突'}</strong><span>${c3.all?'三缸通过':'三缸待调整'} · ${c5.all?'五缸通过':'五缸待调整'}</span></div></div>
+ <div class="compare-keyline"><div><span>共用负载缸行程</span><strong>${f(P.loadStroke)} <small>mm</small></strong></div><div><span>联合最低理论行程</span><strong class="${Math.max(c3.minStroke,c5.minStroke)>P.loadStroke?'negative':''}">${f(Math.max(c3.minStroke,c5.minStroke))} <small>mm</small></strong></div><div><span>三缸底部垫块</span><strong>${f(P.pad3)} <small>mm</small></strong></div><div><span>五缸底部垫块</span><strong>${f(P.pad5)} <small>mm</small></strong></div></div>
+ <div class="compare-two">${side(c3,false)}${side(c5,true)}</div>
+ <section class="card compare-sketches"><div class="sectionhead"><div><h2>三维风格结构运动示意 · 双方案同步</h2><small>选择相同工况，两幅结构图同步切换：${stageSelected}</small></div><div class="compare-toggle">${['装配初始位','基准工作位','附加上升位'].map((x,i)=>`<button data-compare-stage="${i}" class="${selectedStage===i?'current':''}">${x}</button>`).join('')}<button class="animate-toggle" data-animate="1">▶ 运动演示</button></div></div><div class="compare-sketch-grid"><div><div class="mini-diagram-name"><b>三缸构型</b>${checkLabel(c3.stages[selectedStage].ok)}</div><svg id="compareDiagram3" viewBox="0 0 1040 530" role="img" aria-label="三缸工程立体运动示意"></svg></div><div><div class="mini-diagram-name"><b>五缸构型</b>${checkLabel(c5.stages[selectedStage].ok)}</div><svg id="compareDiagram5" viewBox="0 0 1040 530" role="img" aria-label="五缸工程立体运动示意"></svg></div></div><p class="compare-geometry-disclaimer">工程立体示意按输入尺寸驱动运动链，保留固定缸筒和连接关系；局部宽度仅用于辨识，不能替代SolidWorks实体包络、真实铰销运动与干涉检查。</p></section>
+<section class="card compare-detailed"><div class="sectionhead"><div><h2>关键参数与三工况对照表</h2><small>并列显示两种结构的真实计算值；与共用件相关的参数自动同步</small></div><button id="copyCompareTable">复制两方案报告</button></div><div class="table-scroll"><table class="compare-table"><thead><tr><th>核对项目</th><th><span class="table-mode">03</span>三缸方案</th><th><span class="table-mode">05</span>五缸方案</th></tr></thead><tbody>${table}</tbody></table></div></section>
+ `;
+ renderDiagram(c3.stages[selectedStage],false,'compareDiagram3');
+ renderDiagram(c5.stages[selectedStage],true,'compareDiagram5');
+ document.querySelectorAll('[data-compare-stage]').forEach(n=>{const select=()=>{selectedStage=Number(n.dataset.compareStage);render()};n.addEventListener('click',select);n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select()}})});
+ $('copyCompareTable').onclick=copyReport;
+}
+
+function render(){let c3=calc3(),c5=calc5();document.body.classList.toggle('is-comparing',mode==='both');$('comparePanel').classList.toggle('hide',mode!=='both');if(mode==='both')renderCompare(c3,c5);let c=mode==='five'?c5:c3,st=c.stages[selectedStage],last=c.stages[2],assem=c.stages[0],five=mode==='five';$('ctrl3').classList.toggle('hide',five);$('ctrl5').classList.toggle('hide',mode==='three');$('tiltControl').classList.toggle('hide',mode==='three');$('tab3').classList.toggle('active',mode==='three');$('tab5').classList.toggle('active',mode==='five');$('tabBoth').classList.toggle('active',mode==='both');if(mode==='both'){$('ctrl3').classList.remove('hide');$('ctrl5').classList.remove('hide');$('tiltControl').classList.remove('hide');}
+let selected=mode==='five'?c5:mode==='three'?c3:c5;if(mode==='both'){five=true;c=c5;st=c.stages[selectedStage];last=c.stages[2];assem=c.stages[0]}
+$('resultTitle').textContent=(five?'五缸':'三缸')+'工况校核结果';$('diagramTitle').textContent=(five?'五缸':'三缸')+'前视结构与当前工况';$('passBadge').textContent=mode==='both'?(c3.all&&c5.all?'两方案通过':'两方案未全部通过'):(c.all?'全部工况通过':'存在约束冲突');$('passBadge').className='pill '+((mode==='both'?c3.all&&c5.all:c.all)?'pass':'fail');
+let comparison=`三缸：${c3.all?'通过':'未通过'}　｜　五缸：${c5.all?'通过':'未通过'}　｜　共用负载缸：${f(P.loadMin)} / ${f(P.loadStroke)} mm　｜　路况缸安装距（三/五）：${f(P.roadMin)} / ${f(P.road5Min)} mm；共用行程 ${f(P.roadStroke)} mm`;let warnings=[];if(mode==='both')warnings.push(comparison);if(c5.stages.some(x=>!x.compatOK)&&mode!=='three')warnings.push('五缸左右两条力链不能按当前设置同时闭合。两侧行程若不同步，必须考虑上横梁倾角与实际导向约束。');if(P.upperDrop===295)warnings.push('五缸路况缸最短安装距当前为 '+f(P.road5Min)+' mm（底法兰至U形销孔中心，可独立调节）；上部连接高差295 mm。');$('modeAlert').innerHTML=warnings.join('<br>');
+$('metrics').innerHTML=summaryCard('目标工况 · 无杆腔净高',last.cavity,'最低要求 '+f(five?P.minC5:P.minC3)+' mm',last.cavityOK?'good':'bad')+summaryCard('目标工况 · 净高裕量',last.cavity-(five?P.minC5:P.minC3),'正值表示超过要求',last.cavityOK?'good':'bad')+summaryCard('全缩回装配 · 负载伸出端余量',P.loadStroke-assem.q,'装配预留要求 '+f(P.endReserve)+' mm',assem.loadOK?'good':'bad')+summaryCard('目标位移范围',c.offset,'从全缩回装配到目标工况的实际竖向位移',c.offset<=P.loadStroke?'good':'bad');
+$('stages').innerHTML=c.stages.map((z,i)=>`<div class="stage ${z.ok?'pass':'fail'} ${selectedStage===i?'current':''}" data-i="${i}" role="button" tabindex="0"><div class="hflex" style="justify-content:space-between"><h3>${i+1}. ${z.name}</h3><span class="pill ${z.ok?'pass':'fail'}">${z.ok?'通过':'不通过'}</span></div><strong>${f(z.q)} <span class="unit">mm</span></strong><div class="detail">负载缸伸出量（最大 ${f(P.loadStroke)}）<br>无杆腔净高：<b>${f(z.cavity)} mm</b><br>${five?'左悬 '+f(z.sL)+' / 右悬 '+f(z.sR)+'<br>左路 '+f(z.rL)+' / 右路 '+f(z.rR)+'<br>两侧闭合差 '+f(z.mismatch)+' mm':'悬架 '+f(z.s)+' / 路况 '+f(z.r)+' mm'}</div></div>`).join('');document.querySelectorAll('.stage').forEach(el=>{const act=()=>{selectedStage=Number(el.dataset.i);render()};el.onclick=act;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act()}}});document.querySelectorAll('.statebtn').forEach((el,i)=>el.classList.toggle('active',selectedStage===i));
+let checks=[];const add=(status,msg)=>checks.push(`<div class="info-item"><span class="mark ${status==='bad'?'fail':status==='warn'?'warn':''}"></span><span>${msg}</span></div>`);
+add(assem.loadOK?'good':'bad',`全缩回装配：负载缸伸出 ${f(assem.q)} mm；距离其最大伸出位置还有 ${f(P.loadStroke-assem.q)} mm（要求预留 ${f(P.endReserve)} mm）。`);
+add(last.loadOK?'good':'bad',`额外上升：负载缸伸出 ${f(last.q)} mm；${last.loadOK?'在行程内':'已越过负载缸行程端点'}。`);
+add(last.cavityOK?'good':'bad',`目标无杆腔净高 ${f(last.cavity)} mm，要求至少 ${f(five?P.minC5:P.minC3)} mm；剩余裕量 ${f(last.cavity-(five?P.minC5:P.minC3))} mm。`);
+for(let i=0;i<c.stages.length;i++){let z=c.stages[i];if(five ? !z.lowerOK : !(z.roadOK&&z.susOK))add('bad',`工况${i+1}：${five?'左右悬架/路况':'悬架/路况'}行程超出规定范围。`);if(five&&!z.compatOK)add('bad',`五缸工况${i+1}：左右闭合差 ${f(z.mismatch)} mm，最大允许 ${f(P.sideTolerance)} mm；${tilt?'倾角受限或几何不可达':'上横梁按水平计算'}。`)}
+if(five){add('warn',`五缸两悬架缸上耳相距 ${f(2*P.upperX)} mm，下耳相距 ${f(2*P.lowerX)} mm，每侧水平偏置 ${f(P.lowerX-P.upperX)} mm。`);add('warn',`五缸路况缸最短安装距 ${f(P.road5Min)} mm（底部法兰面至U形头销孔中心）；独立于三缸的 ${f(P.roadMin)} mm。左右五缸路况缸共用该值。`)}
+if((five?c5:c3).minStroke>P.loadStroke+1e-8)add('bad',`当前装配、目标净高及预留要求下，负载缸额定行程至少应为 ${f((five?c5:c3).minStroke)} mm，现有 ${f(P.loadStroke)} mm。单独调整垫块无法补救。`);
+if(!validInput())add('bad','存在非正液压缸参数，当前计算无法作为有效设计依据。');
+if(last.q<10||assem.q>P.loadStroke-10)add('warn','负载缸接近机械端点（10 mm以内）：建议在实际设计中增加机械缓冲、控制限位及误差裕量。');
+$('checks').innerHTML=checks.join('');
+const win=(x,label)=>`${label}垫块允许范围：${isValidWindow(x)?`<b>${f(Math.max(0,x.low))}～${f(x.high)} mm</b>`:`<b style="color:#b33d3d">无可行区间</b>`}；该模式所需负载缸最低行程 <b>${f(x.minStroke)} mm</b>`;
+$('window').innerHTML=(mode==='both'?win(c3,'三缸')+'<br>'+win(c5,'五缸'):win(c,five?'五缸':'三缸'))+`<br>两方案的共同最低负载缸行程：<b>${f(Math.max(c3.minStroke,c5.minStroke))} mm</b>。<br><span style="color:#5e768a">仅在左右力链几何相容、底部垫块≥0、上部安装高度固定时成立。</span>`;
+if(!five){$('formula').textContent=`三缸竖向尺寸链：\nq₀ = H − (负载最短距 + 悬架最短距 + 路况最短距 + 机加件 + 垫块)\n   = ${f(P.H)} − (${f(P.loadMin)} + ${f(P.sus3Min)} + ${f(P.roadMin)} + ${f(P.machine)} + ${f(P.pad3)})\n   = ${f(c3.q0)} mm\nq(s,r) = q₀ − s − r\n目标(s,r) = (${f(P.sus3Mid)}, ${f(P.road3Mid+P.road3Rise)})\nq目标 = ${f(last.q)} mm；无杆腔净高 = q目标 + ${f(P.dead)} = ${f(last.cavity)} mm`;}else{$('formula').textContent=`五缸真实斜杆投影（左右对称、上梁水平时）：\nd = 下耳水平距 − 上耳水平距 = ${f(P.lowerX-P.upperX)} mm\nvᵢ = √[(L悬最短+ sᵢ)² − d²]\n下铰点 Yᵢ = 五缸垫块 + 五缸路况缸最短销心安装距 + rᵢ\n上铰点 Yᵢ上 = Yᵢ + vᵢ（水平上梁）\n负载缸伸出 q = H − L负最短 − 上销中心下沉高 − Y上中心\n\n工况：${last.name}\n左侧悬架竖直投影 = ${f(last.vl)} mm\n右侧悬架竖直投影 = ${f(last.vr)} mm\n上销中心高度左/右 = ${f(last.yl)} / ${f(last.yr)} mm\n几何闭合差 = ${f(last.mismatch)} mm\n上梁试算倾角 = ${f(last.angle)}°\n共用负载缸伸出 = ${f(last.q)} mm`}
+$('sharedTable').innerHTML=`<table><thead><tr><th>组件 / 基准</th><th>三缸模式</th><th>五缸模式</th></tr></thead><tbody><tr><td>负载缸最短安装距 / 行程</td><td>${f(P.loadMin)} / ${f(P.loadStroke)}</td><td>${f(P.loadMin)} / ${f(P.loadStroke)}</td></tr><tr><td>路况缸最短安装距 / 共用行程</td><td>${f(P.roadMin)} / ${f(P.roadStroke)}</td><td>${f(P.road5Min)} / ${f(P.roadStroke)}</td></tr><tr><td>路况缸安装距测量基准</td><td>底部安装法兰至顶部方形法兰</td><td>底部安装法兰至U形头销孔中心</td></tr><tr><td>安装距参数关联</td><td>独立调节</td><td>独立调节（左右相同）</td></tr><tr><td>悬架缸最短安装距 / 行程</td><td>${f(P.sus3Min)} / ${f(P.susStroke)}</td><td>${f(P.sus5Min)} / ${f(P.susStroke)} ×2</td></tr><tr><td>中间机加件 / 上耳销下沉高</td><td>${f(P.machine)}</td><td>${f(P.upperDrop)}（PDF测量295）</td></tr><tr><td>垫块高度</td><td>${f(P.pad3)}</td><td>${f(P.pad5)}（待定）</td></tr></tbody></table>`;
+$('physicalWarning').innerHTML='五缸路况缸安装距按底部法兰安装面至U形头销孔中心测量；<b>当前设定 '+f(P.road5Min)+' mm</b>，原实测参考值680 mm，且不随三缸安装距变化。<b>负载缸杆端至悬架上耳销孔中心高度差为 '+f(P.upperDrop)+' mm</b>。⚠ 仍需通过SolidWorks确认耳钩包络、导向、管路、制造与液压缸真实死区。';
+$('solverNote').textContent='三缸垫块当前 '+f(P.pad3)+' mm，五缸垫块当前 '+f(P.pad5)+' mm；共用负载缸 '+f(P.loadMin)+' / '+f(P.loadStroke)+' mm。';
+renderDiagram(st,five);
+}
+function renderDiagram(st,five,targetId='diagram') {
+  const svg=$(targetId); if(!svg)return;
+  const pid='cad'+targetId.replace(/[^a-zA-Z0-9]/g,'');
+  const W=1040,HEIGHT=530,sc=405/Math.max(P.H,1), yFloor=468, yCeil=yFloor-P.H*sc;
+  const cx=520,sideScale=.34;
+  const fy=v=>yFloor-v*sc, fx=x=>cx+x*sideScale;
+  const n=x=>Number.isFinite(x)?(+x).toFixed(2):'0';
+  const out=[];const add=x=>out.push(x);
+  const poly=(pts,fill,stroke='none',sw=1)=>add(`<polygon points="${pts.map(p=>p.map(n).join(',')).join(' ')}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`);
+  const path=(d,fill='none',stroke='none',sw=1)=>add(`<path d="${d}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round" stroke-linecap="round"/>`);
+  const ln=(x1,y1,x2,y2,stroke='#8195a5',sw=1,dash='')=>add(`<line x1="${n(x1)}" y1="${n(y1)}" x2="${n(x2)}" y2="${n(y2)}" stroke="${stroke}" stroke-width="${sw}" ${dash?`stroke-dasharray="${dash}"`:''}/>`);
+  const rect=(x,y,w,h,fill,rx=2,stroke='none')=>add(`<rect x="${n(x)}" y="${n(y)}" width="${n(Math.max(0,w))}" height="${n(Math.max(0,h))}" rx="${rx}" fill="${fill}" stroke="${stroke}"/>`);
+  const text=(x,y,str,size=12,col='#334b60',weight=600,anchor='start')=>add(`<text x="${n(x)}" y="${n(y)}" font-size="${size}" fill="${col}" text-anchor="${anchor}" font-weight="${weight}">${esc(str)}</text>`);
+  const ellipse=(x,y,rx,ry,fill,stroke='none',sw=1)=>add(`<ellipse cx="${n(x)}" cy="${n(y)}" rx="${rx}" ry="${ry}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`);
+  const steel=(x,y,w,h)=>{rect(x,y,w,h,`url(#${pid}steel)`,Math.min(5,w/4));ln(x+w*.25,y+2,x+w*.25,y+h-2,'#f7fbff',1.1);};
+  const plate=(x,y,w,h,color='url(#'+pid+'light)')=>{rect(x,y,w,h,color,3,'#708391');poly([[x,y+h],[x+w,y+h],[x+w+9,y+h-7],[x+9,y+h-7]],'#8695a2');poly([[x+w,y],[x+w+9,y-7],[x+w+9,y+h-7],[x+w,y+h]],'#758796');ln(x+8,y+3,x+w-5,y+3,'#ffffffa1',1.6);};
+  const bolt=(x,y)=>{ellipse(x,y,3.3,2.1,'#e5ebee','#617786',.85);ellipse(x-.55,y-.3,1,0.7,'#5d768b');};
+  const pin=(x,y,rad=6)=>{ellipse(x,y,rad+3,rad+1,'#718497','#435d6c',1);ellipse(x,y,rad-1,rad-1,'#eff3f4','#607484',1.6);ellipse(x-.9,y-.8,1.5,1.5,'#a6b6c2');};
+  const port=(x,y,flip=false)=>{rect(x+(flip?0:-14),y-4,14,8,'#737f88',1,'#435765');ellipse(x+(flip?14:-14),y,4,4,'#c88d98','#536b7e',1)};
+  // Stable fixed-barrel cylinder, its rod position follows the geometric stroke.
+  function cylinderVertical(x,baseY,tipY,bodyHeight,radius,barrel='dark',foot='bottom',info=''){
+    const up=Math.min(baseY,tipY),down=Math.max(baseY,tipY);
+    const bTop=baseY-Math.min(bodyHeight,Math.max(24,baseY-up-10));
+    let col=barrel==='dark'?pid+'black':barrel==='silver'?pid+'susp':pid+'road';
+    steel(x-7,up,14,Math.max(1,bTop-up+13));
+    rect(x-radius,bTop,2*radius,Math.max(17,baseY-bTop),`url(#${col})`,radius*.38,'#596b76');
+    ellipse(x,bTop,radius,4.8,'#d6dfe4','#647b8a',1.3);
+    ellipse(x,baseY,radius+2,5.2,'#83919b','#4b687a',1);
+    plate(x-radius-9,baseY-5,radius*2+18,10,'url(#'+pid+'light)');
+    bolt(x-radius-3,baseY+1);bolt(x+radius+3,baseY+1);
+    port(x+radius,bTop+Math.max(15,(baseY-bTop)*.3),true);
+    port(x-radius,bTop+Math.max(28,(baseY-bTop)*.74),false);
+    if(info) text(x+radius+20,bTop+22,info,12,'#516a7a');
+  }
+  function topLoadCylinder(){
+    const top=yCeil+10,bodyBottom=fy(P.H-P.loadMin),rodEnd=fy(P.H-P.loadMin-st.q);
+    plate(cx-35,yCeil+4,70,13,'url(#'+pid+'light)');
+    for(const b of [-26,26]){bolt(cx+b,yCeil+10)}
+    rect(cx-20,top+7,40,Math.max(8,bodyBottom-top-7),`url(#${pid}black)`,8,'#546777');
+    ellipse(cx,top+9,20,5,'#899ba8','#536575',1);
+    ellipse(cx,bodyBottom,20,5,'#66798a','#344b5a',1);
+    steel(cx-7,bodyBottom,14,Math.max(0,rodEnd-bodyBottom));
+    plate(cx-23,rodEnd-4,46,10,'url(#'+pid+'light)');
+    text(cx+38,top+30,'负载模拟缸 · 缸筒固定',12,'#3b5366');
+    text(cx+38,top+46,'杆伸出 '+f(st.q)+' / '+f(P.loadStroke)+' mm',11,'#617789',500);
+    port(cx+20,top+36,true);port(cx-20,top+71,false);
+    return {rodEnd,bodyBottom};
+  }
+  add(`<defs>
+    <linearGradient id="${pid}steel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#667c8e"/><stop offset=".22" stop-color="#c0cdd8"/><stop offset=".52" stop-color="#ffffff"/><stop offset=".77" stop-color="#bac8d2"/><stop offset="1" stop-color="#718798"/></linearGradient>
+    <linearGradient id="${pid}black" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#151e26"/><stop offset=".22" stop-color="#343e48"/><stop offset=".52" stop-color="#58636d"/><stop offset=".84" stop-color="#303a44"/><stop offset="1" stop-color="#1d252c"/></linearGradient>
+    <linearGradient id="${pid}susp" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#87999e"/><stop offset=".3" stop-color="#ced9db"/><stop offset=".57" stop-color="#f0f4f2"/><stop offset="1" stop-color="#8a9ca2"/></linearGradient>
+    <linearGradient id="${pid}road" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#262e35"/><stop offset=".3" stop-color="#4c5960"/><stop offset=".6" stop-color="#636f74"/><stop offset="1" stop-color="#313a42"/></linearGradient>
+    <linearGradient id="${pid}light" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1ece3"/><stop offset=".48" stop-color="#d9d5c9"/><stop offset="1" stop-color="#bcb6aa"/></linearGradient>
+    <linearGradient id="${pid}fixture" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f9ea7"/><stop offset=".55" stop-color="#e3e8eb"/><stop offset="1" stop-color="#8999a3"/></linearGradient>
+    <pattern id="${pid}grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="#e2e9ee" stroke-width=".6"/></pattern>
+  </defs>`);
+  rect(0,0,W,HEIGHT,'#f7fafc',0);rect(0,0,W,HEIGHT,`url(#${pid}grid)`,0);
+  rect(30,19,330,39,'#eff4f8',10,'#e0eaf1');text(47,42,(five?'05  五缸布局  1+2+2':'03  三缸布局  1+1+1'),14,'#254156',750);
+  // Frame (fixed) and ground plane
+  poly([[190,yFloor+5],[855,yFloor+5],[889,yFloor+24],[224,yFloor+24]],'#afbac4');
+  poly([[196,yFloor-9],[865,yFloor-9],[883,yFloor+6],[215,yFloor+6]],'#e2e7eb','#94a4ae');
+  for(let i=0;i<17;i++)ln(211+i*36,yFloor-5,223+i*36,yFloor+4,'#adb8c0',1.7);
+  for(const x of [211,830]){
+    rect(x-18,yCeil,36,yFloor-yCeil-1,`url(#${pid}light)`,2,'#9ca6ac');
+    poly([[x+18,yCeil],[x+29,yCeil-9],[x+29,yFloor-9],[x+18,yFloor]],'#aeb5b8','#8e9b9f');
+    plate(x-31,yFloor-8,72,12,'url(#'+pid+'light)');
+    for(const b of [-18,18])bolt(x+b,yFloor);
+  }
+  poly([[181,yCeil-16],[858,yCeil-16],[871,yCeil-6],[194,yCeil-6]],'#a4b3bd');
+  rect(181,yCeil-12,677,17,`url(#${pid}light)`,2,'#81949e');
+  for(const x of [206,268,771,837])bolt(x,yCeil-3);
+  // stationary guide rods and moving bearing blocks
+  for(const gx of [332,708]){
+    steel(gx-4,yCeil+19,8,yFloor-yCeil-52);
+    for(const yy of [yCeil+45,yFloor-39])plate(gx-16,yy,32,8,'url(#'+pid+'fixture)');
+  }
+  // suspension upper moving structure; must be drawn in front of the guide rods.
+  const {rodEnd}=topLoadCylinder();
+  if(!five){
+    const roadY=P.pad3+P.roadMin+st.r;
+    const susY=roadY+P.sus3Min+st.s;
+    const machineTop=susY+P.machine;
+    const yR=fy(roadY),yS=fy(susY),yM=fy(machineTop),padTop=fy(P.pad3);
+    // Fixed road cylinder with bottom foot, rod extension ending at the road/support joint.
+    rect(cx-34,yFloor-10,68,9,'#8999a5',2);rect(cx-28,padTop,56,yFloor-padTop,'#b1b9c0',2,'#778897');
+    cylinderVertical(cx,padTop,yR,P.roadMin*sc*.78,19,'road','','');
+    plate(cx-35,yR-5,70,12,'url(#'+pid+'fixture)');
+    // Suspension cylinder body anchored to road joint, active telescoping rod top.
+    cylinderVertical(cx,yR,yS,P.sus3Min*sc*.75,17,'silver');
+    plate(cx-48,yS-6,96,12,'url(#'+pid+'fixture)');
+    // Machine housing and load bar
+    poly([[cx-88,yM+8],[cx+88,yM+8],[cx+71,yS-12],[cx-71,yS-12]],'url(#'+pid+'light)','#96a3aa',1.1);
+    plate(cx-154,yM-7,308,15,'url(#'+pid+'light)');
+    plate(cx-90,yS-9,180,11,'url(#'+pid+'light)');
+    for(const ox of [-133,133]){bolt(cx+ox,yM+3);ellipse(cx+ox,yM+16,5,5,'#9daab1','#536a79',1)}
+    for(const gx of [332,708]){
+      plate(gx-21,yM-2,42,24,`url(#${pid}fixture)`);
+    }
+    text(675,yM+29,`机加件 ${f(P.machine)} mm`,11,'#586b79');
+    text(675,yS+16,`悬架伸出 ${f(st.s)} mm`,11,'#586e7a');
+    text(675,yR+16,`路况伸出 ${f(st.r)} mm`,11,'#586e7a');
+    if(P.pad3>0)text(cx+40,yFloor-9,`垫块 ${f(P.pad3)} mm`,10,'#617587');
+  } else {
+    // Five-cylinder: two stationary road bodies and two inclined pinned suspension actuators.
+    const yUpper=st.Ycent;
+    const leftLower=P.pad5+P.road5Min+st.rL,rightLower=P.pad5+P.road5Min+st.rR;
+    const yUpperL=st.yl,yUpperR=st.yr;
+    const upperLeftX=-P.upperX*Math.cos(st.t),upperRightX=P.upperX*Math.cos(st.t);
+    const bases=[{sgn:-1,lower:leftLower,upper:yUpperL,upperX:upperLeftX,s:st.sL,r:st.rL,side:'左'},
+                 {sgn: 1,lower:rightLower,upper:yUpperR,upperX:upperRightX,s:st.sR,r:st.rR,side:'右'}];
+    for(const b of bases){
+      let xb=fx(b.sgn*P.lowerX),xu=fx(b.upperX),yl=fy(b.lower),yu=fy(b.upper),padTop=fy(P.pad5),xdelta=xu-xb,ydelta=yu-yl;
+      rect(xb-23,padTop,46,yFloor-padTop,'#aeb7bf',3,'#7e909c');
+      cylinderVertical(xb,padTop,yl,P.road5Min*sc*.76,17,'road');
+      // U-clevis foot around the lower suspension pivot.
+      plate(xb-22,yl-9,44,10,'url(#'+pid+'fixture)');
+      ln(xb-13,yl-9,xb-13,yl-24,'#6e7e87',5);ln(xb+13,yl-9,xb+13,yl-24,'#6e7e87',5);
+      // Inclined suspension cylinder barrel occupies 72% of available center length; silver rod follows motion.
+      const length=Math.hypot(xdelta,ydelta),a=Math.atan2(ydelta,xdelta)*180/Math.PI;
+      add(`<g transform="translate(${n(xb)} ${n(yl)}) rotate(${n(a)})">`);
+      rect(0,-14,length*.72,28,`url(#${pid}susp)`,8,'#6b838d');
+      rect(length*.72,-5,length*.28,10,`url(#${pid}steel)`,3);
+      ellipse(0,0,12,13,'#c5d2d6','#617986',1);
+      ellipse(length*.72,0,10,12,'#8499a2','#526b76',1);
+      add('</g>');
+      pin(xb,yl,6);pin(xu,yu,6);
+      text(xb+(b.sgn<0?-62:32),Math.min(yFloor-51,yl+33),`${b.side}路 ${f(b.r)}`,10,'#607684');
+      text((xb+xu)/2+(b.sgn<0?-90:15),(yl+yu)/2-8,`${b.side}悬 ${f(b.s)}`,10,'#536d7c');
+    }
+    // Central load rod end links a wide beam to two upper clevis pins.
+    plate(cx-140,rodEnd-7,280,17,'url(#'+pid+'light)');
+    const pLx=fx(upperLeftX),pRx=fx(upperRightX),pLy=fy(yUpperL),pRy=fy(yUpperR);
+    const upperBracketTop=Math.min(pLy,pRy,rodEnd+5);
+    poly([[cx-118,rodEnd+10],[cx+118,rodEnd+10],[pRx+12,pRy-10],[pLx-12,pLy-10]],'url(#'+pid+'fixture)','#71848f',1);
+    for(const [x,y] of [[pLx,pLy],[pRx,pRy]]){
+      ln(x-8,y-25,x-8,y,'#748894',5);ln(x+8,y-25,x+8,y,'#748894',5);pin(x,y,7);
+    }
+    text(689,rodEnd+29,'杆端至上铰点 '+f(P.upperDrop)+' mm',11,'#596e7b');
+    text(689,rodEnd+44,'上梁倾角 '+f(st.angle)+'°',10,'#6b8595',500);
+    text(689,yFloor-21,'路况U形头安装距 '+f(P.road5Min)+' mm',10,'#607586',500);
+    // frame bearing support at actual moving beam height
+    for(const gx of [332,708])plate(gx-21,rodEnd-3,42,22,`url(#${pid}fixture)`);
+    if(Math.abs(st.mismatch)>P.sideTolerance)text(cx,yFloor+36,'⚠ 左右铰点闭合不匹配：'+f(st.mismatch)+' mm',11,'#b74243',700,'middle');
+  }
+  // Elevation and informational overlay
+  ln(128,yCeil,128,yFloor,'#9cafbb',1.2,'5 5');ln(119,yCeil,137,yCeil,'#859aa9');ln(119,yFloor,137,yFloor,'#859aa9');text(119,(yCeil+yFloor)/2,'H = '+f(P.H)+' mm',12,'#658096',650,'end');
+  const status=st.ok?'几何约束满足':'存在几何约束冲突';
+  rect(749,65,269,113,'#ffffff',10,'#dae5ec');
+  rect(751,67,4,109,st.ok?'#14826c':'#b94343',2);
+  text(769,87,'当前工况',10,'#718b9b');
+  text(769,106,st.name,12,'#263f55',750);
+  text(769,129,'负载伸出 '+f(st.q)+' mm',12,'#374f61');
+  text(769,147,'无杆腔估算净高 '+f(st.cavity)+' mm',12,'#374f61');
+  text(769,166,status,11,st.ok?'#15836b':'#b94343',750);
+  if(st.cavity<5 || P.loadStroke-st.q<5){rect(749,185,269,30,'#fff4eb',6,'#edccac');text(762,204,'注意：负载缸接近机械端点',11,'#a46122',700);}
+  rect(18,495,1000,26,'#eff4f7',7);text(30,512,'模型说明：固定缸筒 / 伸缩杆 / 连接件采用工程立体表现；尺寸链按输入计算，视觉宽度不作制造依据。',10,'#698095',500);
+  svg.innerHTML=out.join('');
+}
+function doSolve(name){let c=name==='three'?calc3():calc5(),key=name==='three'?'pad3':'pad5';if(!isValidWindow(c)){alert(`${name==='three'?'三缸':'五缸'}：当前负载缸行程 ${P.loadStroke} mm 下，垫块不存在可行区间。\n最低理论负载缸行程：${f(c.minStroke)} mm（还须满足左右几何闭合与可制造性）。`);return}let v=choosePad(c,P[key]);setP({[key]:v});}
+function jointSolve(){let c3=calc3(),c5=calc5(),required=Math.max(c3.minStroke,c5.minStroke);if(!Number.isFinite(required)||required<0){alert('当前参数导致无效的几何投影，请先修正安装距与铰点偏置。');return}
+if(c5.stages.some(x=>!x.compatOK)){alert('五缸左右当前中位或目标工况不满足同一上横梁几何约束。请先同步左右行程或允许合理倾转，再使用联合优化。');return}
+let nStroke=Math.max(P.loadStroke,Math.ceil(required));let temp={...P,loadStroke:nStroke},save=P;P=temp;let v3=calc3(),v5=calc5();P=save;let pad3=choosePad(v3,P.pad3),pad5=choosePad(v5,P.pad5);if(pad3===null||pad5===null){alert('当前连杆/缸体组合下垫块无法保证非负并满足约束，请增大或重新分配最短安装距。');return}setP({loadStroke:nStroke,pad3,pad5});$('solverNote').textContent=`反算完成：负载缸额定行程 ${f(nStroke)} mm；三缸垫块 ${f(pad3)} mm；五缸垫块 ${f(pad5)} mm。仍需核对机械端点余量、实际导向与实体干涉。`}
+// Build a separate, deterministic print snapshot. This avoids viewport clipping,
+// hidden tabs, interactive sliders and SVGs that only display the selected stage.
+function renderPrintReport(){
+  const c3=calc3(),c5=calc5();
+  const root=$('printReport');
+  const names=[['commonFields','01 · 共同基准与共用液压缸'],['fields3','02 · 三缸结构参数'],['fields5','03 · 五缸结构参数'],['safetyFields','04 · 安全约束与净高要求']];
+  const row=(key,label)=>`<tr><th scope="row">${esc(label)}</th><td>${f(P[key])} ${key==='maxAngle'?'°':'mm'}</td></tr>`;
+  const paramGroups=names.map(([field,title])=>`<section class="print-param-group"><h3>${esc(title)}</h3><table class="print-param-table"><tbody>${schema[field].map(x=>row(x[0],x[1])).join('')}</tbody></table></section>`).join('');
+  const extraGroup=`<section class="print-param-group"><h3>05 · 五缸机构其他设置与计算基准</h3><table class="print-param-table"><tbody>${row('maxAngle','允许的最大倾角')}<tr><th>五缸上横梁倾转试算</th><td>${tilt?'允许':'不允许（水平）'}</td></tr><tr><th>五缸路况缸独立安装距（U形头销孔中心）</th><td>${f(P.road5Min)} mm</td></tr><tr><th>悬架缸上、下铰点单侧水平偏置差</th><td>${f(P.lowerX-P.upperX)} mm</td></tr></tbody></table></section>`;
+  const stageLabels=['装配初始位','基准工作位','路况缸附加上升位'];
+  const stageTableRows=stageLabels.map((title,i)=>{
+    const x=c3.stages[i], y=c5.stages[i];
+    return `<tr><th>${title} · 负载缸伸出量</th><td>${f(x.q)} mm</td><td>${f(y.q)} mm</td></tr><tr><th>${title} · 无杆腔估算净高</th><td>${f(x.cavity)} mm</td><td>${f(y.cavity)} mm</td></tr><tr><th>${title} · 约束状态</th><td class="${x.ok?'positive':'negative'}">${x.ok?'满足':'不满足'}</td><td class="${y.ok?'positive':'negative'}">${y.ok?'满足':'不满足'}</td></tr>`;
+  }).join('');
+  const printDetailed=`<table class="print-report-matrix"><thead><tr><th>工程校核项目</th><th>三缸方案</th><th>五缸方案</th></tr></thead><tbody>
+    <tr><th>结构配置（负载 / 悬架 / 路况）</th><td>1 / 1 / 1</td><td>1 / 2 / 2</td></tr>
+    <tr><th>底部垫块设计高度</th><td>${f(P.pad3)} mm</td><td>${f(P.pad5)} mm</td></tr>
+    <tr><th>共用负载缸最短安装距 / 额定行程</th><td>${f(P.loadMin)} / ${f(P.loadStroke)} mm</td><td>${f(P.loadMin)} / ${f(P.loadStroke)} mm</td></tr>
+    <tr><th>路况缸最短安装距 / 额定行程</th><td>${f(P.roadMin)} / ${f(P.roadStroke)} mm</td><td>${f(roadL5())} / ${f(P.roadStroke)} mm</td></tr>
+    <tr><th>悬架缸最短安装距 / 额定行程</th><td>${f(P.sus3Min)} / ${f(P.susStroke)} mm</td><td>${f(P.sus5Min)} / ${f(P.susStroke)} mm</td></tr>
+    ${stageTableRows}
+    <tr><th>装配初始位 · 负载缸伸出端剩余行程</th><td>${f(P.loadStroke-c3.stages[0].q)} mm</td><td>${f(P.loadStroke-c5.stages[0].q)} mm</td></tr>
+    <tr><th>目标工况 · 腔高超出下限的余量</th><td>${f(c3.stages[2].cavity-P.minC3)} mm</td><td>${f(c5.stages[2].cavity-P.minC5)} mm</td></tr>
+    <tr><th>负载缸最低理论行程需求</th><td>${f(c3.minStroke)} mm</td><td>${f(c5.minStroke)} mm</td></tr>
+    <tr><th>垫块高度理论可行区间</th><td>${isValidWindow(c3)?`${f(Math.max(0,c3.low))}～${f(c3.high)} mm`:'不可行'}</td><td>${isValidWindow(c5)?`${f(Math.max(0,c5.low))}～${f(c5.high)} mm`:'不可行'}</td></tr>
+    <tr><th>五缸左右铰接几何闭合误差（目标位）</th><td>不适用</td><td>${f(c5.stages[2].mismatch)} mm</td></tr>
+    <tr><th>最终运动学判断</th><td class="${c3.all?'positive':'negative'}">${c3.all?'全部满足':'存在冲突'}</td><td class="${c5.all?'positive':'negative'}">${c5.all?'全部满足':'存在冲突'}</td></tr>
+   </tbody></table>`;
+  const diagrams=stageLabels.map((title,i)=>`<section class="print-motion-block"><div class="print-motion-top"><h3>工况 ${i+1} · ${title}</h3><small>三缸${c3.stages[i].ok?' ✓ 满足':' ✕ 不满足'} · 五缸${c5.stages[i].ok?' ✓ 满足':' ✕ 不满足'}</small></div><div class="print-motion-grid"><div class="print-motion-figure"><strong>三缸构型 · 1 + 1 + 1</strong><svg id="printDiagram3_${i}" viewBox="0 0 1040 530" role="img" aria-label="三缸${title}运动示意"></svg><div class="print-motion-caption"><span>负载伸出 ${f(c3.stages[i].q)} mm</span><span>腔高 ${f(c3.stages[i].cavity)} mm</span></div></div><div class="print-motion-figure"><strong>五缸构型 · 1 + 2 + 2</strong><svg id="printDiagram5_${i}" viewBox="0 0 1040 530" role="img" aria-label="五缸${title}运动示意"></svg><div class="print-motion-caption"><span>负载伸出 ${f(c5.stages[i].q)} mm</span><span>腔高 ${f(c5.stages[i].cavity)} mm</span></div></div></div></section>`).join('');
+  const date=new Date().toLocaleString('zh-CN',{hour12:false});
+  root.innerHTML=`<header class="print-document-head"><div class="print-kicker">ENGINEERING DESIGN / COMPLETE PARAMETER & KINEMATIC REPORT</div><h1>悬架试验台架 · 三缸 / 五缸联合调参记录</h1><div class="print-meta"><span>记录时间：${esc(date)}</span><span>当前浏览模式：${mode==='both'?'双方案核对':mode==='three'?'三缸方案':'五缸方案'}</span><span>线性尺寸：mm</span><span>打印范围：完整参数 + 双方案结果 + 六幅工况示意</span></div></header>
+    <section><div class="print-parameter-header"><h2>一、全部输入参数（左侧参数面板）</h2><small>参数值为打印时刻的实时快照</small></div><div class="print-parameter-groups">${paramGroups}${extraGroup}</div></section>
+    <section><div class="print-section-head"><h2>二、三缸 / 五缸运动学核验结果（右侧计算内容）</h2><small>${c3.all&&c5.all?'两方案几何校核通过（动态安全未校核）':'至少一套方案存在约束冲突'}</small></div>
+      <div class="print-stat-strip"><div><small>共用负载缸额定行程</small><b>${f(P.loadStroke)} mm</b></div><div><small>联合最低理论行程</small><b>${f(Math.max(c3.minStroke,c5.minStroke))} mm</b></div><div><small>三缸底座垫高</small><b>${f(P.pad3)} mm</b></div><div><small>五缸底座垫高</small><b>${f(P.pad5)} mm</b></div></div>${printDetailed}
+      <div class="print-calcs"><b>三缸尺寸链：</b> q₀ = ${f(P.H)} − (${f(P.loadMin)} + ${f(P.machine)} + ${f(P.sus3Min)} + ${f(P.roadMin)} + ${f(P.pad3)}) = ${f(c3.q0)} mm；q(s,r) = q₀ − s − r。<br>
+        <b>五缸闭合关系：</b>左右悬架缸长度根据上铰点${f(P.upperX)} mm与下铰点${f(P.lowerX)} mm的水平偏距计算竖向投影；负载缸杆端至上铰点高差${f(P.upperDrop)} mm；五缸路况缸独立销心安装距${f(P.road5Min)} mm。${tilt?'上横梁允许有限倾角几何试算。':'上横梁视作水平。'}<br>
+        <b>约束说明：</b>目标无杆腔净高要求：三缸${f(P.minC3)} mm、五缸${f(P.minC5)} mm；负载伸出端预留${f(P.endReserve)} mm；五缸左右闭合容差${f(P.sideTolerance)} mm。</div>
+    </section>
+    <section><div class="print-section-head"><h2>三、制造与验证提醒</h2></div><p class="print-note">五缸路况缸底部法兰至U形头销孔中心当前设置${f(P.road5Min)} mm（原实测参考680 mm，独立于三缸${f(P.roadMin)} mm）；负载缸杆端至悬架上耳销轴中心高差${f(P.upperDrop)} mm。负载缸真实无杆腔死区、各缸实物最短安装距、机械端部余量、销轴/耳钩摆角、导向杆约束、油口管路碰撞与强度均须独立核验。</p></section>
+    <section class="print-motion-section"><div class="print-section-head print-motion-header"><h2>四、结构运动示意 · 三工况双方案完整图集</h2><small>共六幅图，打印时均予保留</small></div>${diagrams}<p class="print-footnote">说明：示意仅基于二维几何与行程约束；五缸横向比例为便于辨识进行放大。状态图不得替代SolidWorks装配运动仿真或实体干涉检查。</p></section>
+`;
+  for(let i=0;i<3;i++){
+    renderDiagram(c3.stages[i],false,`printDiagram3_${i}`);
+    renderDiagram(c5.stages[i],true,`printDiagram5_${i}`);
+  }
+}
+
+function report(){let c3=calc3(),c5=calc5();const stage=(c)=>c.stages.map(x=>`${x.name}：负载伸出${f(x.q)} mm、无杆腔估算净高${f(x.cavity)} mm、${x.ok?'通过':'不通过'}${x.mismatch!==undefined?'、左右闭合差'+f(x.mismatch)+' mm、倾角'+f(x.angle)+'°':''}`).join('\n');return `悬架试验台架｜三缸 + 五缸联合调参报告\n龙门架净高：${f(P.H)} mm\n共用负载缸：最短安装距 ${f(P.loadMin)} mm、行程 ${f(P.loadStroke)} mm\n悬架缸共用额定行程：${f(P.susStroke)} mm\n路况缸共用额定行程：${f(P.roadStroke)} mm；三缸安装距（方形法兰）${f(P.roadMin)} mm；五缸安装距（U形头销心）${f(P.road5Min)} mm（两者独立）\n\n[三缸]\n中间机加件高：${f(P.machine)} mm；底部垫块：${f(P.pad3)} mm\n悬架缸：${f(P.sus3Min)} / ${f(P.susStroke)} mm；中位 ${f(P.sus3Mid)} mm\n路况缸中位 ${f(P.road3Mid)} mm；中位上升 ${f(P.road3Rise)} mm\n${stage(c3)}\n垫块可行区间：${f(c3.low)}～${f(c3.high)} mm；最低负载缸行程 ${f(c3.minStroke)} mm\n\n[五缸]\n新悬架缸（左右各一）：销心最短安装距 ${f(P.sus5Min)} mm、行程 ${f(P.susStroke)} mm；上耳距中轴 ${f(P.upperX)} mm、下耳距中轴 ${f(P.lowerX)} mm\n左右悬架中位 ${f(P.sus5MidL)} / ${f(P.sus5MidR)} mm；路况中位 ${f(P.road5MidL)} / ${f(P.road5MidR)} mm\n路况中位额外上升左/右 ${f(P.road5RiseL)} / ${f(P.road5RiseR)} mm；五缸垫块 ${f(P.pad5)} mm\n五缸路况缸底部法兰至U形销孔中心安装距 ${f(P.road5Min)} mm（PDF默认715，可调，与三缸独立）；负载连接面至上耳销中心 ${f(P.upperDrop)} mm（PDF默认295）\n${stage(c5)}\n垫块可行区间：${f(c5.low)}～${f(c5.high)} mm；最低负载缸行程 ${f(c5.minStroke)} mm\n\n两模式共同最低负载行程：${f(Math.max(c3.minStroke,c5.minStroke))} mm\n注意：本程序仅作二维尺寸链/行程校核与工程立体示意，五缸路况缸销心安装距当前设为${f(P.road5Min)} mm（原实测680），上耳下沉高${f(P.upperDrop)} mm；仍未经过CAD全运动干涉/强度/液压缸内部死区净高验证。`}
+async function copyReport(){let str=report();try{await navigator.clipboard.writeText(str)}catch(_){let ta=document.createElement('textarea');ta.value=str;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}let bt=$('copy');bt.textContent='已复制';setTimeout(()=>bt.textContent='复制计算报告',1300)}
+function exportJSON(){let data=JSON.stringify({platform:'3-5 suspension test stand',version:2,parameters:P,mode,tilt},null,2);let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json;charset=utf-8'}));a.download='三缸五缸台架_参数方案.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+$('tab3').onclick=()=>setMode('three');$('tab5').onclick=()=>setMode('five');$('tabBoth').onclick=()=>setMode('both');$('tilt').onchange=e=>{tilt=e.target.checked;render()};document.querySelectorAll('.statebtn').forEach((btn,i)=>btn.onclick=()=>{selectedStage=i;render()});$('half3').onclick=()=>setP({sus3Mid:P.susStroke/2,road3Mid:P.roadStroke/2});$('half5').onclick=()=>setP({sus5MidL:P.susStroke/2,sus5MidR:P.susStroke/2,road5MidL:P.roadStroke/2,road5MidR:P.roadStroke/2});$('sync5').onclick=()=>setP({sus5MidR:P.sus5MidL,road5MidR:P.road5MidL,road5RiseR:P.road5RiseL});$('reset').onclick=()=>setP({H:2584,machine:215,pad3:68,loadMin:630,loadStroke:375,susStroke:250,roadMin:680,roadStroke:300,sus3Min:620,sus3Mid:125,road3Mid:150,road3Rise:94,minC3:0,endReserve:0});$('resetAll').onclick=()=>{tilt=false;$('tilt').checked=false;setP(initial)};$('pad3solve').onclick=()=>doSolve('three');$('pad5solve').onclick=()=>doSolve('five');$('jointSolve').onclick=jointSolve;$('copy').onclick=copyReport;$('print').onclick=()=>{renderPrintReport();window.print()};window.addEventListener('beforeprint',renderPrintReport);$('export').onclick=exportJSON;
+
+// Visual demonstration interpolates between mid and test states without modifying the stored design.
+let demoActive=false,demoFrame=0,demoStarted=0;
+function previewAt(t){
+ const wave=.5-.5*Math.cos(t*Math.PI*2);
+ const z3=calc3(),z5=calc5(),mix=(a,b)=>a+(b-a)*wave;
+ let a=z3.stages[1],b=z3.stages[2];
+ const s3=mix(a.s,b.s),r3=mix(a.r,b.r),q03=z3.q0;
+ const p3={...a,s:s3,r:r3,q:q03-s3-r3};p3.cavity=p3.q+P.dead;p3.name='连续演示 · 基准位 ↔ 附加上升位';p3.ok=p3.q>=0&&p3.q<=P.loadStroke;
+ let c=z5.stages[1],d=z5.stages[2];
+ let p5=calc5Stage(mix(c.sL,d.sL),mix(c.sR,d.sR),mix(c.rL,d.rL),mix(c.rR,d.rR),'test');p5.name='连续演示 · 基准位 ↔ 附加上升位';
+ if(mode==='both'){renderDiagram(p3,false,'compareDiagram3');renderDiagram(p5,true,'compareDiagram5')}
+ else renderDiagram(mode==='three'?p3:p5,mode==='five','diagram');
+}
+function animationTick(ts){if(!demoActive)return;if(!demoStarted)demoStarted=ts;previewAt((ts-demoStarted)/3100);demoFrame=requestAnimationFrame(animationTick)}
+function setAnimation(v){demoActive=v;demoStarted=0;cancelAnimationFrame(demoFrame);
+  document.querySelectorAll('.animate-toggle').forEach(b=>{b.textContent=v?'■ 停止演示':'▶ 运动演示';b.classList.toggle('playing',v)});
+  if(v)demoFrame=requestAnimationFrame(animationTick);else render();}
+document.addEventListener('click',e=>{if(e.target.closest('.animate-toggle'))setAnimation(!demoActive)});
+
+createControls();render();
+</script></body></html>
