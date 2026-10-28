@@ -6,6 +6,12 @@
 
 源码仓库：[XuJun1212-FZU/suspension-rig-online](https://github.com/XuJun1212-FZU/suspension-rig-online)。本仓库保存源代码，生产账号密码、运行时密钥和数据库内容不在仓库中。GitHub 代码上传与现有 Sites 发布分别管理。
 
+## 普通浏览器独立部署
+
+已提供可独立运行的 Node.js 服务、Dockerfile 和 Railway 配置，详情见 [DEPLOY_RAILWAY.md](DEPLOY_RAILWAY.md)。这个运行方式直接显示站点账号密码界面，不依赖 ChatGPT 登录。部署时必须挂载持久化磁盘，才能保留账号、参数和更新日志。独立服务的正式网址需要在托管账号连接并成功部署后生成；上面的旧 Sites 地址不能代替这一步。
+
+本地服务端检查共 16 项通过，含实际 HTTP 服务器、HTTPS 反向代理会话和完整服务重启后的数据保留；本机未安装 Docker，容器构建需要在部署平台执行验证。
+
 ## 已实现
 
 - 服务端验证账号密码；未登录不能读取工作台、参数和更新日志。

@@ -1,0 +1,13 @@
+.git
+.local
+.wrangler
+node_modules
+dist
+tests
+.env
+.env.*
+*.sqlite
+*.sqlite-*
+*.zip
+*.tar.gz
+*.png
