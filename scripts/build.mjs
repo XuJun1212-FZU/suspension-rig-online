@@ -10,11 +10,12 @@ const bridge = `window.rigStore={get:()=>({parameters:{...P},mode,tilt}),set:s=>
 let workspace = original.replace('</head>', '<link rel="stylesheet" href="/cloud.css"></head>')
   .replace('<body>', '<body class="cloud-loading"><div id="cloudToolbar" class="cloud-toolbar" aria-label="云端保存与账户"><span id="cloudStatus" role="status">正在读取最新参数…</span><div><button id="cloudReload">读取最新</button><button id="cloudHistory">更新日志</button><button id="cloudSave" class="cloud-primary">保存参数</button><button id="cloudExit">保存并退出</button><button id="cloudLogout">退出登录</button></div></div><div id="cloudLoading" class="cloud-loading-card">正在读取云端最新参数…</div>')
   .replace('createControls();render();', 'createControls();render();\n' + bridge)
-  .replace('</body>', '<script src="/app.js"></script></body>');
+  .replace('</body>', '<script src="/password.js"></script><script src="/app.js"></script></body>');
+workspace=workspace.replace('<button id="cloudHistory">更新日志</button>','<button id="cloudHistory">更新日志</button><button id="cloudPassword">修改密码</button>');
 for (const script of workspace.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)) new Script(script[1]);
-new Script(read('web/app.js'));new Script(read('web/login.js'));
-const login = read('web/login.html').replace('/* LOGIN_CSS */', read('web/cloud.css')).replace('/* LOGIN_JS */', read('web/login.js'));
-const assets = {workspace, login, app:read('web/app.js'), css:read('web/cloud.css')};
+new Script(read('web/app.js'));new Script(read('web/login.js'));new Script(read('web/password.js'));
+const login = read('web/login.html').replace('/* LOGIN_CSS */', read('web/cloud.css')).replace('/* LOGIN_JS */', read('web/password.js')+'\n'+read('web/login.js'));
+const assets = {workspace, login, app:read('web/app.js'), password:read('web/password.js'), css:read('web/cloud.css')};
 mkdirSync(new URL('dist/server/', root), {recursive:true});mkdirSync(new URL('dist/.openai/', root), {recursive:true});
 writeFileSync(new URL('dist/server/index.js', root), 'const DEFAULT_PARAMETERS=' + JSON.stringify(defaults) + ';\nconst ASSETS=' + JSON.stringify(assets) + ';\n' + read('worker/server.js'));
 cpSync(new URL('.openai/hosting.json', root), new URL('dist/.openai/hosting.json', root));

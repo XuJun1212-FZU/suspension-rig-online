@@ -14,6 +14,20 @@ const json=(value,status=200,headers={})=>new Response(JSON.stringify(value),{st
 const defaultSnapshot=()=>({parameters:{...DEFAULT_PARAMETERS},mode:'three',tilt:false});
 // Only configure this binding behind Sites' trusted identity gateway, never on a raw public Worker.
 const isSetupOwner=(request,env)=>!!env.SETUP_OWNER_EMAIL&&!!request.headers.get('oai-authenticated-user-id')&&request.headers.get('oai-authenticated-user-email')?.toLowerCase()===env.SETUP_OWNER_EMAIL.toLowerCase();
+const provisionedBindings=new WeakMap();
+async function provisionConfiguredUsers(env){
+  const config=env.PROVISION_USERS_JSON;if(!config)return;
+  const previous=provisionedBindings.get(env.DB);if(previous?.config===config)return previous.promise;
+  const promise=(async()=>{
+    let users;try{users=JSON.parse(config);}catch{throw new ApiError(503,'账号初始化配置无效，请联系管理员。');}
+    if(!Array.isArray(users)||users.length<1||users.length>50||new Set(users.map(u=>u?.username)).size!==users.length)throw new ApiError(503,'账号初始化配置无效，请联系管理员。');
+    for(const u of users)if(typeof u?.username!=='string'||!/^[A-Za-z0-9_.-]{3,40}$/.test(u.username)||typeof u.passwordHash!=='string'||!/^[a-f0-9]{64}$/.test(u.passwordHash)||typeof u.salt!=='string'||!/^[a-f0-9]{64}$/.test(u.salt))throw new ApiError(503,'账号初始化配置无效，请联系管理员。');
+    const createdAt=new Date().toISOString();
+    await env.DB.batch(users.map(u=>env.DB.prepare('INSERT INTO users (username,password_hash,salt,created_at) VALUES (?,?,?,?) ON CONFLICT(username) DO NOTHING').bind(u.username,u.passwordHash,u.salt,createdAt)));
+  })();
+  provisionedBindings.set(env.DB,{config,promise});
+  try{await promise;}catch(e){if(provisionedBindings.get(env.DB)?.promise===promise)provisionedBindings.delete(env.DB);throw e;}
+}
 function validateSnapshot(s){
   if(!s||typeof s!=='object'||!s.parameters||Object.keys(s.parameters).length!==Object.keys(DEFAULT_PARAMETERS).length)throw new ApiError(400,'参数不完整，请重新读取最新数据。');
   const p=s.parameters;
@@ -35,7 +49,7 @@ function sessionCookie(request,token,age=SESSION_SECONDS){return `${cookieName(r
 async function getSession(request,env){
   const name=cookieName(request),token=request.headers.get('cookie')?.split(';').map(x=>x.trim()).find(x=>x.startsWith(name+'='))?.slice(name.length+1);
   if(!token||!/^[a-f0-9]{64}$/.test(token))return null;
-  return env.DB.prepare('SELECT token_hash, username, csrf, expires_at FROM sessions WHERE token_hash = ? AND expires_at > ?').bind(await digest(token),Date.now()).first();
+  return env.DB.prepare('SELECT s.token_hash, s.username, s.csrf, s.expires_at FROM sessions s JOIN users u ON u.username = s.username AND u.password_version = s.password_version WHERE s.token_hash = ? AND s.expires_at > ?').bind(await digest(token),Date.now()).first();
 }
 async function limited(env,bucket,max){
   const now=Date.now();
@@ -54,14 +68,37 @@ async function route(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
   if(!['GET','POST'].includes(method))return json({error:'不支持此请求方法。'},405,{'Allow':'GET, POST'});
   if(!env.DB)throw new ApiError(503,'数据库尚未连接，请联系站点管理员。');
+  await provisionConfiguredUsers(env);
   if(method==='POST'&&(request.headers.get('origin')!==url.origin||request.headers.get('sec-fetch-site')==='cross-site'))throw new ApiError(403,'请求来源无效。');
   if(path==='/api/status'&&method==='GET'){
     const user=await env.DB.prepare('SELECT username FROM users LIMIT 1').first();
     const ownerSetup=!user&&isSetupOwner(request,env);
     return json({setupRequired:!user,setupAvailable:!user&&(!!env.SETUP_TOKEN||ownerSetup),ownerSetup,ownerSignInRequired:!user&&!!env.SETUP_OWNER_EMAIL&&!ownerSetup});
   }
+  if(path==='/api/change-password'&&method==='POST'){
+    const data=await body(request),ip=request.headers.get('cf-connecting-ip')||'local';
+    await limited(env,'password-ip:'+await digest(ip),40);
+    if(typeof data.username!=='string'||!/^[A-Za-z0-9_.-]{3,40}$/.test(data.username)||typeof data.currentPassword!=='string'||data.currentPassword.length>128)throw new ApiError(401,'账号或原密码不正确。');
+    const accountBucket='password-user:'+await digest(data.username.toLowerCase());
+    await limited(env,accountBucket,10);
+    credentials({username:data.username,password:data.newPassword});
+    if(data.confirmPassword!==data.newPassword)throw new ApiError(400,'两次输入的新密码不一致。');
+    if(data.currentPassword===data.newPassword)throw new ApiError(400,'新密码不能与原密码相同。');
+    const user=await env.DB.prepare('SELECT * FROM users WHERE username = ?').bind(data.username).first();
+    const actual=await passwordHash(data.currentPassword,user?.salt||'missing-user-dummy-salt');
+    if(!user||!equal(actual,user.password_hash))throw new ApiError(401,'账号或原密码不正确。');
+    const salt=random(),hash=await passwordHash(data.newPassword,salt);
+    const result=await env.DB.batch([
+      env.DB.prepare('UPDATE users SET password_hash = ?, salt = ?, password_version = password_version + 1 WHERE username = ? AND password_hash = ? AND password_version = ?').bind(hash,salt,user.username,user.password_hash,user.password_version),
+      env.DB.prepare('DELETE FROM sessions WHERE username = ? AND EXISTS (SELECT 1 FROM users WHERE username = ? AND password_hash = ?)').bind(user.username,user.username,hash),
+      env.DB.prepare('DELETE FROM login_limits WHERE bucket IN (?,?) AND EXISTS (SELECT 1 FROM users WHERE username = ? AND password_hash = ?)').bind(accountBucket,'user:'+await digest(user.username.toLowerCase()),user.username,hash)
+    ]);
+    if(!result[0].meta.changes)throw new ApiError(409,'密码已被修改，请使用最新密码重试。');
+    return json({ok:true,message:'密码已修改，请使用新密码重新登录。'},200,{'Set-Cookie':sessionCookie(request,'',0)});
+  }
   if((path==='/api/setup'||path==='/api/login')&&method==='POST'){
     const data=await body(request),ip=request.headers.get('cf-connecting-ip')||'local';
+    let verifiedHash,verifiedVersion;
     await limited(env,'ip:'+await digest(ip),40);
     if(path==='/api/setup'){
       if(await env.DB.prepare('SELECT username FROM users LIMIT 1').first())throw new ApiError(409,'管理员已经创建，请直接登录。');
@@ -69,7 +106,8 @@ async function route(request,env){
       const tokenValid=env.SETUP_TOKEN&&typeof data.setupToken==='string'&&equal(await digest(data.setupToken),await digest(env.SETUP_TOKEN));
       if(!isSetupOwner(request,env)&&!tokenValid)throw new ApiError(403,'请使用站点所有者身份登录，或填写正确的初始化密钥。');
       credentials(data);const salt=random();
-      const result=await env.DB.prepare('INSERT INTO users (username,password_hash,salt,created_at) SELECT ?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM users)').bind(data.username,await passwordHash(data.password,salt),salt,new Date().toISOString()).run();
+      verifiedHash=await passwordHash(data.password,salt);verifiedVersion=0;
+      const result=await env.DB.prepare('INSERT INTO users (username,password_hash,salt,created_at) SELECT ?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM users)').bind(data.username,verifiedHash,salt,new Date().toISOString()).run();
       if(!result.meta.changes)throw new ApiError(409,'管理员已经创建，请直接登录。');
     }else{
       if(typeof data.username!=='string'||typeof data.password!=='string'||data.username.length>40||data.password.length>128)throw new ApiError(401,'账号或密码不正确。');
@@ -77,14 +115,17 @@ async function route(request,env){
       const user=await env.DB.prepare('SELECT * FROM users WHERE username = ?').bind(data.username).first();
       const actual=await passwordHash(data.password,user?.salt||'missing-user-dummy-salt');
       if(!user||!equal(actual,user.password_hash))throw new ApiError(401,'账号或密码不正确。');
+      verifiedHash=user.password_hash;verifiedVersion=user.password_version;
       await env.DB.prepare('DELETE FROM login_limits WHERE bucket = ?').bind('user:'+await digest(data.username.toLowerCase())).run();
     }
     const token=random(),csrf=random();
     await env.DB.prepare('DELETE FROM sessions WHERE expires_at <= ?').bind(Date.now()).run();
     await env.DB.prepare('DELETE FROM login_limits WHERE expires_at < ?').bind(Date.now()).run();
-    await env.DB.prepare('INSERT INTO sessions (token_hash,username,csrf,expires_at) VALUES (?,?,?,?)').bind(await digest(token),data.username,csrf,Date.now()+SESSION_SECONDS*1000).run();
+    const loggedIn=await env.DB.prepare('INSERT INTO sessions (token_hash,username,csrf,expires_at,password_version) SELECT ?,username,?,?,password_version FROM users WHERE username = ? AND password_version = ? AND password_hash = ?').bind(await digest(token),csrf,Date.now()+SESSION_SECONDS*1000,data.username,verifiedVersion,verifiedHash).run();
+    if(!loggedIn.meta.changes)throw new ApiError(401,'密码已发生变化，请使用最新密码重新登录。');
     return json({ok:true},200,{'Set-Cookie':sessionCookie(request,token)});
   }
+  if(path==='/change-password'&&method==='GET')return new Response(ASSETS.login,{headers:{'Content-Type':'text/html; charset=utf-8'}});
   const session=await getSession(request,env);
   if(!session){
     if(path.startsWith('/api/'))throw new ApiError(401,'登录已过期，请重新登录。');
@@ -129,6 +170,7 @@ async function route(request,env){
   }
   if(method==='GET'&&(path==='/'||path==='/workspace'||path==='/login'))return new Response(ASSETS.workspace,{headers:{'Content-Type':'text/html; charset=utf-8'}});
   if(method==='GET'&&path==='/app.js')return new Response(ASSETS.app,{headers:{'Content-Type':'text/javascript; charset=utf-8'}});
+  if(method==='GET'&&path==='/password.js')return new Response(ASSETS.password,{headers:{'Content-Type':'text/javascript; charset=utf-8'}});
   if(method==='GET'&&path==='/cloud.css')return new Response(ASSETS.css,{headers:{'Content-Type':'text/css; charset=utf-8'}});
   return json({error:'页面不存在。'},404);
 }

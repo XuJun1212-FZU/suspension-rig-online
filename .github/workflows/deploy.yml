@@ -23,7 +23,7 @@ jobs:
         run: |
           node scripts/build.mjs
           node scripts/validate-artifact.mjs
-          node --test tests/server.test.mjs
+          node --test tests/*.test.mjs
       - name: Configure provisioned database
         run: node scripts/configure-cloudflare.mjs
       - name: Apply schema migrations

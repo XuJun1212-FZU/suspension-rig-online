@@ -102,6 +102,7 @@ async function history(){
 }
 function download(data,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 byId('cloudSave').onclick=()=>saveDialog(false);byId('cloudExit').onclick=exitDialog;byId('cloudLogout').onclick=exitDialog;byId('cloudHistory').onclick=history;byId('cloudReload').onclick=reloadDialog;
+byId('cloudPassword').onclick=()=>{if(ready&&!busy)window.RigPassword.open(session.username);};
 window.addEventListener('rig:change',update);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&ready)update();});
 (async()=>{try{
